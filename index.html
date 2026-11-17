@@ -4,144 +4,210 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Borvo Rov</title>
-<meta name="theme-color" content="#3b2a17">
+<meta name="theme-color" content="#0b0a0c">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
-/* Papyrus scroll: aged reed paper, iron-gall ink, red rubrication. Single deliberate theme. */
+@font-face{font-family:"Fraktur";src:url(fonts/unifrakturmaguntia-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Pirata";src:url(fonts/pirata-one-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Garamond";src:url(fonts/eb-garamond-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Garamond";src:url(fonts/eb-garamond-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Garamond";src:url(fonts/eb-garamond-latin-400-italic.woff2) format("woff2");font-style:italic;font-display:swap}
+/* Gothic reliquary: black stone and iron, gold leaf, blood-crimson glass. Single dark theme by choice. */
 :root{
-  --paper:#e8d6ac; --paper2:#dcc392; --ink:#3b2a17; --muted:#6e5638; --line:#a8865a;
-  --rubric:#8e2b1c; --leaf:#4a5e2c; --field:rgba(255,248,226,.45);
-  --display:"IM Fell English SC",Georgia,serif; --body:"IM Fell English",Georgia,serif;
-  color-scheme:light;
+  --void:#0b0a0c; --stone:#151317; --panel:#1b181c; --panel2:#231f24; --ink:#e4d9c1; --muted:#9a8d76; --line:#4a3f2c;
+  --gold:#b48a32; --gold2:#e2bd62; --crimson:#8e1426; --blood:#5a0a15; --field:rgba(0,0,0,.35);
+  --display:"Fraktur","UnifrakturMaguntia",serif; --gothic:"Pirata","Fraktur",serif; --body:"Garamond","EB Garamond",Georgia,serif;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
 body{
-  color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.4;
-  background-color:#2a1d10;
-  background-image:radial-gradient(circle at 50% 0,#4a3520,#1e140a 75%);
+  color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.4;background-color:var(--void);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .45 0 0 0 0 .4 0 0 0 .12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.6) 0 2px,transparent 2px 84px),
+    radial-gradient(ellipse at 50% -10%,#2a1c22,#0b0a0c 70%);
   min-height:100vh;
 }
-.scroll{
-  max-width:1180px;margin:0 auto;padding:22px 26px 110px;position:relative;
-  background-color:var(--paper);
-  background-image:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
-    repeating-linear-gradient(90deg,rgba(120,85,40,.07) 0 2px,transparent 2px 9px),
-    repeating-linear-gradient(0deg,rgba(120,85,40,.05) 0 1px,transparent 1px 14px),
-    radial-gradient(ellipse at center,rgba(255,245,215,.55),rgba(160,115,55,.35) 85%);
-  box-shadow:inset 0 0 70px rgba(90,55,20,.55),0 10px 40px rgba(0,0,0,.6);
-}
-@media (min-width:700px){.scroll{margin:24px auto;border-radius:3px}}
-h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance}
-input,textarea,select{font:inherit;color:var(--ink);background:var(--field);border:none;border-bottom:1px solid var(--line);border-radius:2px;padding:3px 6px;width:100%;min-width:0}
-textarea{resize:vertical;min-height:70px;line-height:1.4;border:1px solid rgba(168,134,90,.6)}
-input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--rubric);outline-offset:1px;background:rgba(255,250,232,.7)}
-input[type=checkbox]{width:18px;height:18px;accent-color:var(--rubric);padding:0;flex:none}
+.scroll{max-width:1180px;margin:0 auto;padding:6px 16px 110px}
+h1,h2,h3{font-weight:400;margin:0;text-wrap:balance}
+input,textarea,select{font:inherit;color:var(--ink);background:var(--field);border:none;border-bottom:1px solid var(--line);border-radius:0;padding:3px 6px;width:100%;min-width:0}
+select option{background:#151317;color:var(--ink)}
+textarea{resize:vertical;min-height:70px;line-height:1.4;border:1px solid var(--line)}
+input::placeholder,textarea::placeholder{color:#6d6150;font-style:italic}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:1px solid var(--gold2);outline-offset:1px;background:rgba(180,138,50,.08)}
+input[type=checkbox]{width:19px;height:19px;accent-color:var(--crimson);padding:0;flex:none}
 input[type=number]{font-variant-numeric:tabular-nums}
-button,.btnlike{font:inherit;font-size:15px;cursor:pointer;border:1px solid var(--line);background:rgba(255,246,220,.55);color:var(--ink);border-radius:3px;padding:5px 11px}
-button.primary{background:var(--rubric);border-color:var(--rubric);color:#f6e7c4}
-button.mini{padding:1px 8px;font-size:14px}
-button.x{border:none;background:none;color:var(--muted);font-size:20px;padding:0 4px;line-height:1}
-button.x:hover{color:var(--rubric)}
-.top{position:sticky;top:0;z-index:5;background:#2f2112;color:#f0dfb6;border-bottom:2px solid #8a6a3c;padding-top:env(safe-area-inset-top)}
+button,.btnlike{font-family:var(--gothic);font-size:17px;letter-spacing:.03em;cursor:pointer;border:1px solid var(--gold);background:linear-gradient(#2a2428,#151217);color:var(--gold2);border-radius:0;padding:4px 12px;box-shadow:inset 0 1px 0 rgba(226,189,98,.15)}
+button.primary{background:linear-gradient(#e2bd62,#8a6420);border-color:#5e4313;color:#120d07}
+button.mini{padding:1px 10px}
+button.x{border:none;background:none;color:var(--muted);font-size:21px;padding:0 4px;line-height:1;box-shadow:none;font-family:var(--body)}
+button.x:hover{color:#e05a6a}
+.top{position:sticky;top:0;z-index:5;background:linear-gradient(#0d0b0e,#060506);color:var(--gold2);border-bottom:1px solid var(--gold);box-shadow:0 1px 0 #000,0 4px 18px rgba(0,0,0,.9);padding-top:env(safe-area-inset-top)}
 .top-in{max-width:1180px;margin:0 auto;padding:8px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .top-in .grow{flex:1}
-.top button,.top .btnlike{background:#4a351d;border-color:#8a6a3c;color:#f0dfb6}
-.top button.primary{background:var(--rubric);border-color:#c0583f}
-.pill{font-size:14px;padding:2px 10px;border:1px solid #8a6a3c;border-radius:3px;color:#e3cc98}
-.pill.ok{color:#c9e0a0}.pill.bad{color:#ffb39c}
-.hero{display:grid;gap:10px;padding:8px 0 14px;text-align:center}
-.hero .name input{font-family:var(--display);font-size:clamp(34px,7vw,56px);text-align:center;background:none;border:none;color:var(--rubric);text-shadow:0 1px 0 rgba(255,240,200,.6)}
-.hero::after{content:"❦";display:block;color:var(--rubric);font-size:22px;letter-spacing:12px}
+.brand{font-family:var(--display);font-size:26px;color:var(--gold2);text-shadow:0 0 12px rgba(226,189,98,.3)}
+.pill{font-family:var(--body);font-size:14px;padding:1px 10px;border:1px solid var(--line);color:var(--muted)}
+.pill.ok{color:var(--gold2)}.pill.bad{color:#ff8a8a}
+.hero{display:grid;gap:12px;padding:26px 0 20px;text-align:center}
+.hero .name input{font-family:var(--display);font-size:clamp(46px,11vw,84px);text-align:center;background:none;border:none;color:var(--gold2);padding:0;
+  text-shadow:0 2px 0 #000,0 0 24px rgba(226,189,98,.35),0 0 2px #5e4313}
+.hero .rule{height:12px;margin:0 auto;width:min(560px,86%);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);position:relative;
+  background:repeating-linear-gradient(90deg,transparent 0 10px,rgba(180,138,50,.35) 10px 11px)}
+.hero .rule::after{content:"✠";position:absolute;left:50%;top:-15px;transform:translateX(-50%);background:var(--void);color:var(--crimson);padding:0 12px;font-size:26px;text-shadow:0 0 10px rgba(142,20,38,.8)}
+.hero .meta .f label{color:var(--gold)}
 .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;text-align:left}
 .f{display:flex;flex-direction:column;gap:1px}
-.f label,.lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:var(--display)}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-.card{padding:12px 12px 14px;display:flex;flex-direction:column;gap:10px;border:1px solid rgba(140,100,55,.45);border-radius:2px;background:rgba(255,246,218,.18);box-shadow:inset 0 0 18px rgba(130,90,40,.18)}
-.card h2{font-size:20px;color:var(--rubric);letter-spacing:.06em;display:flex;align-items:center;gap:10px}
-.card h2::before{content:"✦";font-size:13px;color:var(--leaf)}
-.card h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.f label,.lbl{font-family:var(--gothic);font-size:15px;letter-spacing:.04em;color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.card{
+  padding:20px 16px 18px;display:flex;flex-direction:column;gap:10px;position:relative;
+  background-color:var(--panel);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .6 0 0 0 0 .5 0 0 0 0 .35 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(ellipse at 50% 0,rgba(142,20,38,.14),transparent 60%),
+    linear-gradient(#1f1b20,#141215);
+  border:1px solid var(--gold);
+  border-radius:46px 46px 2px 2px/22px 22px 2px 2px;
+  box-shadow:inset 0 0 0 4px var(--panel),inset 0 0 0 5px rgba(180,138,50,.4),inset 0 0 60px rgba(0,0,0,.75),0 10px 26px rgba(0,0,0,.85);
+}
+.card::before,.card::after{content:"✠";position:absolute;color:var(--gold);font-size:14px;line-height:1;opacity:.85}
+.card::before{bottom:6px;left:8px}.card::after{bottom:6px;right:8px}
+.card h2{font-family:var(--display);font-size:30px;color:var(--gold2);display:flex;align-items:center;gap:12px;text-shadow:0 2px 0 #000,0 0 14px rgba(226,189,98,.22)}
+.card h2::before{content:"";width:14px;height:14px;flex:none;background:var(--crimson);transform:rotate(45deg);box-shadow:0 0 8px rgba(142,20,38,.9),inset 0 0 0 1px #e2bd62}
+.card h2::after{content:"";flex:1;height:3px;border-top:1px solid var(--gold);border-bottom:1px solid rgba(180,138,50,.35)}
 .c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
 @media (max-width:980px){.c3,.c4,.c5{grid-column:span 6}.c7,.c8{grid-column:span 12}}
-@media (max-width:640px){.c3,.c4,.c5,.c6,.c7,.c8{grid-column:span 12}.scroll{padding:16px 14px 110px}}
-.abils{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+@media (max-width:640px){.c3,.c4,.c5,.c6,.c7,.c8{grid-column:span 12}}
+.abils{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
 @media (max-width:640px){.abils{grid-template-columns:repeat(3,1fr)}}
-.ab{border:1px solid var(--line);border-radius:50% 50% 8px 8px/22% 22% 8px 8px;padding:10px 6px 8px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;background:rgba(255,248,226,.35)}
-.ab .mod{font-family:var(--display);font-size:30px;color:var(--rubric);font-variant-numeric:tabular-nums;line-height:1}
-.ab input[type=number]{text-align:center;width:60px;border:1px solid var(--line);border-radius:20px}
+.ab{display:flex;flex-direction:column;align-items:center;gap:4px}
+.ab .sh{width:100%;max-width:132px;padding:3px;background:linear-gradient(160deg,#f0cf78,#7a5a1b 55%,#e2bd62);clip-path:polygon(0 0,100% 0,100% 58%,50% 100%,0 58%)}
+.ab .in{background:radial-gradient(ellipse at 50% 20%,#3a1018,#160a0d 75%);clip-path:polygon(0 0,100% 0,100% 58%,50% 100%,0 58%);padding:8px 6px 36px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.ab .lbl{font-size:13px;color:var(--gold2)}
+.ab .mod{font-family:var(--display);font-size:34px;color:var(--gold2);line-height:1.05;text-shadow:0 2px 0 #000}
+.ab input[type=number]{text-align:center;width:52px;border:1px solid var(--gold);background:rgba(0,0,0,.45)}
 .ab .save{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--muted)}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px}
-.stat{border:1px solid var(--line);padding:6px;text-align:center;background:rgba(255,248,226,.3);display:flex;flex-direction:column;gap:3px;border-radius:2px}
-.stat .big{font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums;color:var(--rubric)}
+.stat{border:1px solid var(--line);padding:6px;text-align:center;background:rgba(0,0,0,.3);display:flex;flex-direction:column;gap:3px;box-shadow:inset 0 0 0 1px rgba(180,138,50,.15)}
+.stat .big{font-family:var(--display);font-size:32px;font-variant-numeric:tabular-nums;color:var(--gold2);line-height:1.1;text-shadow:0 2px 0 #000}
 .stat input{text-align:center}
-.hp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.hpbar{height:8px;border:1px solid var(--line);background:rgba(255,248,226,.4);overflow:hidden}
-.hpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--rubric),#b8452c);transition:width .3s}
+.acbox{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);padding:8px;background:rgba(0,0,0,.2)}
+.acitem{display:grid;grid-template-columns:auto 1fr 90px 58px 24px;gap:6px;align-items:center}
+.acitem select{padding:3px}
+.wear{min-width:74px;font-size:15px}
+.wear.on{background:linear-gradient(#e2bd62,#8a6420);border-color:#5e4313;color:#120d07}
+.hp{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.hptotal{font-family:var(--display);font-size:28px;color:var(--gold2);line-height:1.1}
+.hpbar{height:22px;border:3px solid #050405;background:#050405;position:relative;overflow:hidden;box-shadow:0 0 0 1px var(--gold),0 0 14px rgba(142,20,38,.35),inset 0 0 6px #000}
+.hpbar i{display:block;height:100%;transition:width .4s;
+  background:
+    linear-gradient(rgba(255,210,210,.28),transparent 45%,rgba(0,0,0,.35)),
+    repeating-linear-gradient(90deg,#8e1426 0 22px,#b3203a 22px 36px,#5a0a15 36px 52px,#050405 52px 55px);}
+.hpbar i::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 7px,rgba(5,4,5,.9) 7px 8px);pointer-events:none}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .pips{display:flex;gap:4px;align-items:center}
 .skills{display:grid;gap:1px}
 .sk{display:grid;grid-template-columns:42px 1fr 46px 56px;gap:6px;align-items:center;padding:2px 4px;min-height:38px}
-.sk .prof{padding:3px 0;font-size:14px;min-height:32px}
-.sk .prof.on{background:rgba(74,94,44,.18);border-color:var(--leaf)}
-.sk .prof.ex{background:var(--rubric);border-color:var(--rubric);color:#f6e7c4}
-.sk:nth-child(odd){background:rgba(160,120,60,.09)}
-.sk .tot{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--display);font-size:18px}
-.sk .ab3{font-size:12px;color:var(--muted)}
-.sk select{padding:1px;font-size:14px}
+.sk:nth-child(odd){background:rgba(255,255,255,.03)}
+.sk .tot{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:18px;color:var(--gold2)}
+.sk .ab3{font-size:12px;color:var(--muted);font-variant:small-caps}
 .sk input{padding:1px 3px;text-align:center}
-.sk.p .nm{font-style:italic}.sk.e .nm{color:var(--rubric);font-style:italic}
+.sk .prof{padding:2px 0;font-size:15px;min-height:30px}
+.sk .prof.on{border-color:var(--gold2)}
+.sk .prof.ex{background:linear-gradient(#e2bd62,#8a6420);border-color:#5e4313;color:#120d07}
+.sk.p .nm{font-weight:700}.sk.e .nm{font-weight:700;color:var(--gold2)}
 .tbl{display:flex;flex-direction:column;gap:5px}
 .tr{display:grid;gap:6px;align-items:center}
 .tr.attack{grid-template-columns:1.4fr .7fr .6fr 1.3fr 1.6fr 24px}
+.tr.head{font-family:var(--gothic);font-size:15px;color:var(--gold)}
 .hpamt{width:110px!important}
-button.dmg{background:var(--rubric);border-color:var(--rubric);color:#f6e7c4}
-button.heal{background:var(--leaf);border-color:var(--leaf);color:#f6e7c4}
-.tr.head{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--display)}
-@media (max-width:640px){
-  .tr.head{display:none}
-  .tr.attack{grid-template-columns:1fr 1fr 30px;border:1px dashed var(--line);padding:8px;border-radius:3px}
-  .a-name{grid-column:1/3}.a-x{grid-column:3;grid-row:1}
-  .a-dmg,.a-note{grid-column:1/4}
-  .spell{grid-template-columns:28px 1fr 74px 28px!important}
-  input[type=checkbox]{width:24px;height:24px}
-  button{min-height:38px}
-  button.x{min-height:0;font-size:24px}
-  input,select{padding:6px 7px}
-  .hp{grid-template-columns:1fr 1fr 1fr}
-  .row .hpamt{flex:1 1 100%;width:100%!important}
-  .row button.dmg,.row button.heal{flex:1}
-  .top-in{gap:6px}
-  .top-in button,.top-in .btnlike{padding:6px 9px;font-size:14px}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .meta{grid-template-columns:1fr 1fr}
-}
-.feat{border-left:2px solid var(--rubric);padding:2px 0 2px 10px;display:flex;flex-direction:column;gap:4px}
+button.dmg{background:linear-gradient(#a3192f,#5a0a15);border-color:#3a050c;color:#f3d9b5}
+button.heal{background:linear-gradient(#5b6a3f,#2f3a20);border-color:#202813;color:#efe2c2}
+.feat{border-left:2px solid var(--crimson);padding:2px 0 2px 10px;display:flex;flex-direction:column;gap:4px}
 .feat .row{flex-wrap:nowrap}
-.feat .row input{font-family:var(--display);font-size:18px;color:var(--rubric)}
-.spell{display:grid;grid-template-columns:24px 1fr 90px 24px;gap:6px;align-items:center}
+.feat .row input{font-family:var(--gothic);color:var(--gold2);font-size:19px}
+.spell{display:grid;grid-template-columns:24px 1fr 70px 24px;gap:6px;align-items:center}
+.spell.extra{grid-template-columns:1fr 70px 1fr auto 24px}
+.spell.always input[type=text]{color:var(--gold2);font-weight:700}
+.uses{display:flex;gap:4px;align-items:center;white-space:nowrap;font-size:14px;color:var(--muted)}
+.uses input[type=number]{width:44px;text-align:center}
+.sgroup{display:flex;flex-direction:column;gap:4px;margin-bottom:6px}
+.sglvl{font-family:var(--gothic);font-size:16px;color:var(--gold);border-bottom:1px solid var(--line)}
+button.tag{font-size:13px;padding:1px 6px;min-height:0}
+button.tag.on{background:linear-gradient(#e2bd62,#8a6420);border-color:#5e4313;color:#120d07}
 .slots{display:flex;flex-direction:column;gap:6px}
 .slot{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.slot b{font-family:var(--display);font-weight:400;min-width:78px}
+.slot b{min-width:110px;font-family:var(--gothic);font-weight:400;font-size:17px;color:var(--gold2)}
 .chk{display:flex;gap:4px}
+.bond{display:flex;flex-direction:column;gap:5px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.bond .row{flex-wrap:nowrap}.bond .row input{font-family:var(--gothic);font-size:20px;color:var(--gold2)}
+.stepper{display:flex;align-items:center;gap:3px;flex:none}
+.stepper button{padding:2px 8px;min-width:34px;font-family:var(--body);font-weight:700}
+.stepper .val{min-width:46px;text-align:center;font-family:var(--display);font-size:26px;color:var(--gold2);font-variant-numeric:tabular-nums}
+.bond textarea{min-height:44px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.chip{font-family:var(--gothic);font-size:15px;padding:1px 10px;border:1px solid var(--gold2);background:linear-gradient(#3a1018,#1a080c);color:var(--gold2);min-height:0}
+.chip::before{content:"✠ ";color:var(--crimson)}
+.chip.used{background:none;color:#6d6150;text-decoration:line-through;border-color:var(--line)}
+.chip.used::before{content:"✓ ";color:#6d6150}
+.perk{display:flex;flex-direction:column;gap:4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.perk .row{flex-wrap:nowrap}.perk .row input{font-family:var(--gothic);font-size:18px;color:var(--gold2)}.perk textarea{min-height:44px}
+.bp{width:76px;flex:none}.bp input{text-align:center;font-weight:700;color:var(--gold2)}
+.train{display:flex;flex-direction:column;gap:5px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.train .row{flex-wrap:nowrap}.train .row input{font-family:var(--gothic);font-size:20px;color:var(--gold2)}
+.trow{display:grid;grid-template-columns:62px 1fr 110px;gap:8px;align-items:center}
+.bar{height:10px;border:1px solid var(--gold);background:#050405;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(#e2bd62,#8a6420)}
+.bar.ex i{background:linear-gradient(#b3203a,#5a0a15)}
+.tn{display:flex;gap:4px;align-items:center;white-space:nowrap}.tn input{width:56px;text-align:center}
 .coins{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .coins .f input{text-align:center}
 .note{font-size:14px;color:var(--muted);font-style:italic}
+.note b{color:var(--gold2)}
 .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
-.foot{margin-top:22px;text-align:center;font-size:14px;color:var(--muted);font-style:italic}
-.foot::before{content:"❦";display:block;color:var(--rubric);font-size:20px}
+.foot{margin-top:26px;text-align:center;font-size:14px;color:var(--muted);font-style:italic}
+.foot::before{content:"✠";display:block;color:var(--crimson);font-size:24px;text-shadow:0 0 10px rgba(142,20,38,.8)}
 #printFrame{position:fixed;width:0;height:0;border:0;left:-9999px}
+@media (max-width:640px){
+  .card{border-radius:34px 34px 2px 2px/18px 18px 2px 2px;padding:18px 12px 18px}
+  .card h2{font-size:27px}
+  .tr.head{display:none}
+  .tr.attack{grid-template-columns:1fr 1fr 30px;border:1px solid var(--line);padding:8px;background:rgba(0,0,0,.2)}
+  .a-name{grid-column:1/3}.a-x{grid-column:3;grid-row:1}
+  .a-dmg,.a-note{grid-column:1/4}
+  .spell{grid-template-columns:28px 1fr 64px 28px!important}
+  .spell.extra{grid-template-columns:1fr 64px 28px!important;border:1px solid var(--line);padding:6px;background:rgba(0,0,0,.2)}
+  .spell.extra .x{grid-column:3;grid-row:1}
+  .spell.extra .e-note{grid-column:1/3}
+  .spell.extra .e-tags{grid-column:1/4}
+  .acitem{grid-template-columns:auto 1fr 28px}
+  .acitem .ai-type{grid-column:1/2}.acitem .ai-val{grid-column:2/3}.acitem .x{grid-column:3;grid-row:1}
+  input[type=checkbox]{width:24px;height:24px}
+  button{min-height:38px}
+  button.x{min-height:0;font-size:24px}
+  button.chip,button.tag{min-height:32px}
+  input,select{padding:6px 7px}
+  .hp{grid-template-columns:1fr 1fr}
+  .row .hpamt{flex:1 1 100%;width:100%!important}
+  .row button.dmg,.row button.heal{flex:1}
+  .top-in{gap:6px}
+  .top-in button,.top-in .btnlike{padding:5px 9px;font-size:16px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .meta{grid-template-columns:1fr 1fr}
+  .bond .row input{flex:1;min-width:0}
+  .stepper button{min-width:34px;padding:2px 4px}
+  .stepper .val{min-width:38px}
+}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <div class="top">
   <div class="top-in">
-    <strong style="font-family:var(--display);font-size:20px;font-weight:400">Borvo Rov</strong>
+    <strong class="brand">Borvo Rov</strong>
     <span class="pill" id="saveState">Loading…</span>
     <span class="grow"></span>
     <button id="btnLong" title="Restore HP, slots, Lay on Hands and resources">Long rest</button>
@@ -167,7 +233,7 @@ const DEFAULT = {
     insight:{p:2,m:0},intimidation:{p:0,m:0},investigation:{p:0,m:0},medicine:{p:1,m:0},nature:{p:0,m:1},perception:{p:0,m:1},
     performance:{p:0,m:0},persuasion:{p:0,m:0},religion:{p:1,m:0},sleight:{p:0,m:0},stealth:{p:0,m:0},survival:{p:2,m:0}
   },
-  ac:20, initMisc:0, initNote:"Advantage", passiveMisc:0, speed:"30 ft", hpMax:77, hpCur:77, hpTemp:0, hitDice:"7d10", hdUsed:0,
+  acItems:[{name:"Plate armor",type:"set",val:18,worn:true},{name:"Animated Shield",type:"add",val:2,worn:true}], acManual:"", initMisc:0, initNote:"Advantage", passiveMisc:0, speed:"30 ft", hpBase:67, hpBonus:10, hpCur:77, hpTemp:0, hitDice:"7d10", hdUsed:0,
   deathS:0, deathF:0, inspiration:false, exhaustion:0,
   spellAbility:"Charisma", slots:[{lvl:1,max:4,used:0},{lvl:2,max:3,used:0}],
   lay:{max:35,cur:35}, cd:{max:1,used:0}, sense:{max:1,used:0},
@@ -177,12 +243,14 @@ const DEFAULT = {
     {name:"Sacred Flame",range:"60 ft",hit:"DC 11 Dex",dmg:"2d8 radiant",note:"Blessed Warrior cantrip"}
   ],
   spells:[
-    {lvl:"Cantrip",name:"Sacred Flame",always:true},{lvl:"Cantrip",name:"Spare the Dying",always:true},{lvl:"Cantrip",name:"Druidcraft",always:true},
-    {lvl:"1st",name:"Ensnaring Strike",always:true},{lvl:"1st",name:"Speak with Animals",always:true},
-    {lvl:"1st",name:"Bless",always:false},{lvl:"1st",name:"Cure Wounds",always:false},{lvl:"1st",name:"Ceremony",always:false},
-    {lvl:"1st",name:"Magic Missile",always:true},
-    {lvl:"2nd",name:"Misty Step",always:true},{lvl:"2nd",name:"Moonbeam",always:true},{lvl:"2nd",name:"Aid",always:false},
-    {lvl:"3rd",name:"Beacon of Hope",always:true}
+    {lvl:"Cantrip",name:"Sacred Flame",prep:true,always:true},{lvl:"Cantrip",name:"Spare the Dying",prep:true,always:true},
+    {lvl:"1st",name:"Bless",prep:false,always:false},{lvl:"1st",name:"Ceremony",prep:false,always:false},{lvl:"1st",name:"Command",prep:false,always:false},{lvl:"1st",name:"Compelled Duel",prep:false,always:false},{lvl:"1st",name:"Cure Wounds",prep:false,always:false},{lvl:"1st",name:"Detect Evil and Good",prep:false,always:false},{lvl:"1st",name:"Detect Magic",prep:false,always:false},{lvl:"1st",name:"Detect Poison and Disease",prep:false,always:false},{lvl:"1st",name:"Divine Favor",prep:false,always:false},{lvl:"1st",name:"Ensnaring Strike",prep:true,always:true},{lvl:"1st",name:"Heroism",prep:false,always:false},{lvl:"1st",name:"Protection from Evil and Good",prep:false,always:false},{lvl:"1st",name:"Purify Food and Drink",prep:false,always:false},{lvl:"1st",name:"Searing Smite",prep:false,always:false},{lvl:"1st",name:"Shield of Faith",prep:false,always:false},{lvl:"1st",name:"Speak with Animals",prep:true,always:true},{lvl:"1st",name:"Thunderous Smite",prep:false,always:false},{lvl:"1st",name:"Wrathful Smite",prep:false,always:false},
+    {lvl:"2nd",name:"Aid",prep:false,always:false},{lvl:"2nd",name:"Branding Smite",prep:false,always:false},{lvl:"2nd",name:"Find Steed",prep:false,always:false},{lvl:"2nd",name:"Lesser Restoration",prep:false,always:false},{lvl:"2nd",name:"Locate Object",prep:false,always:false},{lvl:"2nd",name:"Magic Weapon",prep:false,always:false},{lvl:"2nd",name:"Misty Step",prep:true,always:true},{lvl:"2nd",name:"Moonbeam",prep:true,always:true},{lvl:"2nd",name:"Protection from Poison",prep:false,always:false},{lvl:"2nd",name:"Zone of Truth",prep:false,always:false}
+  ],
+  extraSpells:[
+    {lvl:"Cantrip",name:"Druidcraft",note:"Additional spell",always:true,uses:0,used:0},
+    {lvl:"1st",name:"Magic Missile",note:"Additional spell",always:false,uses:1,used:0},
+    {lvl:"3rd",name:"Beacon of Hope",note:"Additional spell",always:false,uses:1,used:0}
   ],
   features:[
     {name:"Boon of Saint Amara",text:"Accepted by Saint Amara and her sisters. Can commune with the saints at their six temples (they may answer), carries an aura, and necrotic or undead foes sometimes flee before he arrives. Since session 73 he can see Amara hovering over him. Senses cryptic callings from the saints."},
@@ -212,7 +280,18 @@ const DEFAULT = {
   look:{gender:"Male",age:"35",height:"180 cm",weight:"79 kg",eyes:"Brown",skin:"White",hair:"Short"},
   allies:[{name:"The Blue Oath",rank:"−1"},{name:"Hell Flayers",rank:"1"},{name:"Twilight Owls",rank:"2"},{name:"Gilded Compass",rank:"5"},{name:"Iron Circle",rank:"3"}],
   companions:"Netri — his canary\nKooklos — the ship's monkey, vegetable cutter\nScolera — his ghost wife, bound to his ring",
-  notes:""
+  notes:"",
+  bondPts:["Elas","Firebrand","Frostheart","Corvidae","Haruni","Sol","Wraith","Blink","Nabzif"].map(n=>({name:n,points:0,perks:"",used:{}})),
+  training:[{name:"Blacksmithing",normal:0,expert:0}],
+  perkTable:[
+    {at:10,name:"Hail!",desc:"As long as you're within the same city or forest and your ally makes a check, you may give them advantage. Once a day."},
+    {at:20,name:"Rise!",desc:"Can help a teammate stand up from at least 30 ft away, unless they have an extreme illness or are asleep. Daily."},
+    {at:40,name:"Alarmed",desc:"If an ally sets off a trap, their partner, if within 10 ft, can roll a save to try to intervene."},
+    {at:80,name:"Camp Buddies",desc:"Both partners gain an additional camp action as long as they're together that day or night, to a max of 4."},
+    {at:250,name:"Second Sight",desc:"If your bond partner has Blindsight, Darkvision or Truesight, you gain that sense as long as they live."},
+    {at:500,name:"Fealty",desc:"Your ally can also attempt to roll death saves for you."},
+    {at:1000,name:"???",desc:"A mystery perk, revealed at 1000 bond points.",mystery:true}
+  ]
 };
 
 const SKILLS = [
@@ -234,6 +313,21 @@ function set(path,v){const ks=path.split(".");let o=S;ks.slice(0,-1).forEach(k=>
 // ---------- derived ----------
 function skillTotal(k,ab){const sk=S.skills[k];return md(S.abil[ab].s)+(sk.p===1?S.prof:sk.p===2?S.prof*2:0)+(Number(sk.m)||0)}
 function saveTotal(a){return md(S.abil[a].s)+(S.abil[a].save?S.prof:0)}
+function unlocked(b,bi){const p=Number(b.points)||0;b.used=b.used||{};
+  const got=S.perkTable.filter(k=>p>=(Number(k.at)||0)&&k.name).sort((a,b)=>a.at-b.at);
+  const next=S.perkTable.filter(k=>p<(Number(k.at)||0)).sort((a,b)=>a.at-b.at)[0];
+  const nm=k=>k.mystery&&p<(Number(k.at)||0)?"???":(k.mystery&&k.name==="???"?"Mystery perk":k.name);
+  return `<div class="chips">${got.map(k=>`<button class="chip${b.used[k.name]?" used":""}" data-perkuse="${bi}" data-perk="${esc(k.name)}" title="${esc(k.desc)} — tap to mark used today">${esc(nm(k))}</button>`).join("")}${next?`<span class="note">next: ${esc(nm(next))} at ${next.at}</span>`:""}${got.length?`<span class="note">tap a perk when you use it</span>`:""}</div>`}
+const LVORDER=["cantrip","1st","2nd","3rd","4th","5th","6th","7th","8th","9th"];
+function lvlKey(l){const i=LVORDER.indexOf(String(l||"").trim().toLowerCase());return i<0?99:i}
+function spellGroups(arr,key,row){
+  const groups={};arr.forEach((x,i)=>{const g=String(x.lvl||"Other").trim()||"Other";(groups[g]=groups[g]||[]).push([x,i])});
+  return Object.keys(groups).sort((a,b)=>lvlKey(a)-lvlKey(b)).map(g=>`<div class="sgroup"><div class="sglvl">${esc(/^cantrip/i.test(g)?"Cantrips":g+" level")}</div>${groups[g].map(([x,i])=>row(x,i)).join("")}</div>`).join("");
+}
+function hpMax(){return (Number(S.hpBase)||0)+(Number(S.hpBonus)||0)}
+function acAuto(){const worn=S.acItems.filter(x=>x.worn);const sets=worn.filter(x=>x.type==="set").map(x=>Number(x.val)||0);
+  const base=sets.length?Math.max(...sets):10+md(S.abil.dex.s);return base+worn.filter(x=>x.type==="add").reduce((t,x)=>t+(Number(x.val)||0),0)}
+function acTotal(){const m=String(S.acManual??"").trim();return m!==""&&!isNaN(+m)?+m:acAuto()}
 function passive(){return 10+skillTotal("perception","wis")+(Number(S.passiveMisc)||0)}
 function spellDC(){return 8+S.prof+md(S.abil.cha.s)}
 
@@ -244,10 +338,11 @@ const ta = (path,rows=4) => `<textarea id="i_${path.replace(/\./g,'_')}" data-k=
 const fld = (label,path,type) => `<div class="f"><label for="i_${path.replace(/\./g,'_')}">${label}</label>${inp(path,type)}</div>`;
 
 function render(){
-  const hpPct = Math.max(0,Math.min(100,(S.hpCur/(S.hpMax||1))*100));
+  const hpPct = Math.max(0,Math.min(100,(S.hpCur/(hpMax()||1))*100));
   app.innerHTML = `
   <section class="hero">
     <div class="name">${inp("name")}</div>
+    <div class="rule" aria-hidden="true"></div>
     <div class="meta">
       ${fld("Class & level","classLevel")}${fld("Race","race")}${fld("Background","background")}
       ${fld("Alignment","alignment")}${fld("Deity","deity")}${fld("Experience","xp")}${fld("Player","player")}
@@ -257,9 +352,9 @@ function render(){
   <div class="grid">
     <div class="card c12"><h2>Abilities</h2>
       <div class="abils">${Object.keys(ABN).map(a=>`
-        <div class="ab"><span class="lbl">${ABN[a]}</span>
+        <div class="ab"><div class="sh"><div class="in"><span class="lbl">${ABN[a]}</span>
           <span class="mod">${sg(md(S.abil[a].s))}</span>
-          ${inp(`abil.${a}.s`,"number",'min="1" max="30" aria-label="'+ABN[a]+' score"')}
+          ${inp(`abil.${a}.s`,"number",'min="1" max="30" inputmode="numeric" aria-label="'+ABN[a]+' score"')}</div></div>
           <label class="save"><input type="checkbox" data-k="abil.${a}.save" ${S.abil[a].save?"checked":""}> Save ${sg(saveTotal(a))}</label>
         </div>`).join("")}
       </div>
@@ -267,17 +362,30 @@ function render(){
 
     <div class="card c7"><h2>Combat</h2>
       <div class="stats">
-        <div class="stat"><span class="lbl">Armor Class</span>${inp("ac","number")}</div>
+        <div class="stat"><span class="lbl">Armor Class</span><span class="big">${acTotal()}</span><span class="note">${String(S.acManual??"").trim()!==""?"manual":"base "+(10+md(S.abil.dex.s))}</span></div>
         <div class="stat"><span class="lbl">Initiative</span><span class="big">${sg(md(S.abil.dex.s)+(Number(S.initMisc)||0))}</span><span class="note">${esc(S.initNote)}</span></div>
         <div class="stat"><span class="lbl">Speed</span>${inp("speed")}</div>
         <div class="stat"><span class="lbl">Proficiency</span>${inp("prof","number",'min="2" max="6"')}</div>
         <div class="stat"><span class="lbl">Passive Perc.</span><span class="big">${passive()}</span><span class="note">bonus</span>${inp("passiveMisc","number",'inputmode="numeric" aria-label="Passive Perception bonus"')}</div>
       </div>
+      <div class="acbox">
+        <span class="lbl">Armor & shields — tap to wear or take off</span>
+        ${S.acItems.map((x,i)=>`<div class="acitem">
+          <button class="wear ${x.worn?"on":""}" data-toggle="acItems.${i}.worn">${x.worn?"Worn":"Off"}</button>
+          ${inp(`acItems.${i}.name`,"text",'placeholder="Item"')}
+          <select class="ai-type" data-k="acItems.${i}.type" data-str aria-label="How it affects AC"><option value="set" ${x.type==="set"?"selected":""}>Sets AC</option><option value="add" ${x.type==="add"?"selected":""}>Adds</option></select>
+          <span class="ai-val">${inp(`acItems.${i}.val`,"number",'inputmode="numeric" aria-label="AC value"')}</span>
+          <button class="x" data-del="acItems.${i}" aria-label="Remove item">×</button></div>`).join("")}
+        <div class="row"><button class="mini" data-add="acItems">+ Add item</button><span class="grow"></span>
+          <label class="lbl" for="i_acManual">Manual AC</label><span style="width:70px">${inp("acManual","text",'inputmode="numeric" placeholder="auto"')}</span></div>
+      </div>
       <div class="hp">
         <div class="f"><label for="i_hpCur">Current HP</label>${inp("hpCur","number")}</div>
-        <div class="f"><label for="i_hpMax">Max HP</label>${inp("hpMax","number")}</div>
         <div class="f"><label for="i_hpTemp">Temp HP</label>${inp("hpTemp","number")}</div>
+        <div class="f"><label for="i_hpBase">Base max HP</label>${inp("hpBase","number")}</div>
+        <div class="f"><label for="i_hpBonus">Bonus max HP</label>${inp("hpBonus","number")}</div>
       </div>
+      <div class="row"><span class="lbl">Max HP</span><span class="hptotal">${hpMax()}</span><span class="grow"></span><span class="lbl">${esc(S.hpCur)} / ${hpMax()}${Number(S.hpTemp)?" · +"+esc(S.hpTemp)+" temp":""}</span></div>
       <div class="hpbar" aria-hidden="true"><i style="width:${hpPct}%"></i></div>
       <div class="row">
         <input id="hpAmt" class="hpamt" type="number" min="0" inputmode="numeric" placeholder="Amount" aria-label="HP amount">
@@ -329,13 +437,23 @@ function render(){
       </div>
       <div><button class="mini" data-add="attacks">+ Add attack</button></div>
 
-      <h2>Spells</h2>
-      <div class="tbl">${S.spells.map((s,i)=>`<div class="spell">
-          <input type="checkbox" data-k="spells.${i}.always" ${s.always?"checked":""} title="Always prepared" aria-label="Always prepared">
-          ${inp(`spells.${i}.name`)}${inp(`spells.${i}.lvl`)}
-          <button class="x" data-del="spells.${i}" aria-label="Remove spell">×</button></div>`).join("")}
-      </div>
-      <div class="row"><button class="mini" data-add="spells">+ Add spell</button><span class="note">Tick = always prepared</span></div>
+      <h2>Paladin spells</h2>
+      <div class="note">Tick the spells you have prepared today: <b>${S.spells.filter(x=>x.prep&&!x.always&&!/cantrip/i.test(x.lvl)).length}</b> of ${Math.max(1,md(S.abil.cha.s)+Math.floor(7/2))}. Always-prepared spells don't count.</div>
+      ${spellGroups(S.spells,"spells",(x,i)=>`<div class="spell${x.always?" always":""}">
+          <input type="checkbox" data-k="spells.${i}.prep" ${x.prep||x.always?"checked":""} ${x.always?"disabled":""} aria-label="Prepared">
+          ${inp(`spells.${i}.name`)}
+          <button class="tag ${x.always?"on":""}" data-toggle="spells.${i}.always" title="Always prepared">${x.always?"Always":"–"}</button>
+          <button class="x" data-del="spells.${i}" aria-label="Remove spell">×</button></div>`)}
+      <div class="row"><input id="newSpellLvl" placeholder="Level" style="width:90px" aria-label="New spell level"><button class="mini" data-add="spells">+ Add paladin spell</button></div>
+
+      <h2>Additional spells</h2>
+      ${spellGroups(S.extraSpells,"extraSpells",(x,i)=>{const u=Math.max(0,Number(x.uses)||0);let c="";for(let n=1;n<=u;n++)c+=`<input type="checkbox" data-use="extraSpells.${i}" data-n="${n}" ${(x.used||0)>=n?"checked":""} aria-label="Used ${n}">`;return `<div class="spell extra${x.always?" always":""}">
+          ${inp(`extraSpells.${i}.name`,"text",'placeholder="Spell"')}${inp(`extraSpells.${i}.lvl`,"text",'placeholder="Level"')}
+          <span class="e-note">${inp(`extraSpells.${i}.note`,"text",'placeholder="Source"')}</span>
+          <span class="e-tags row"><button class="tag ${x.always?"on":""}" data-toggle="extraSpells.${i}.always">${x.always?"Always":"–"}</button>
+          ${x.always?"":`<span class="uses">${inp(`extraSpells.${i}.uses`,"number",'inputmode="numeric" min="0" aria-label="Uses per day"')}/day ${c}</span>`}</span>
+          <button class="x" data-del="extraSpells.${i}" aria-label="Remove spell">×</button></div>`})}
+      <div><button class="mini" data-add="extraSpells">+ Add additional spell</button></div>
     </div>
 
     <div class="card c12"><h2>Features & traits</h2>
@@ -356,6 +474,29 @@ function render(){
       <h2>Companions</h2>${ta("companions",4)}
     </div>
 
+    <div class="card c6"><h2>Bond points</h2>
+      <div class="tbl">${S.bondPts.map((b,i)=>`<div class="bond">
+        <div class="row">${inp(`bondPts.${i}.name`,"text",'placeholder="Name"')}
+          <span class="stepper"><button data-bp="${i}" data-d="-1" aria-label="Remove a bond point">−</button><span class="val" aria-label="Bond points">${Number(b.points)||0}</span><button data-bp="${i}" data-d="1" aria-label="Add a bond point">+</button></span>
+          <button class="x" data-del="bondPts.${i}" aria-label="Remove bond">×</button></div>
+        ${unlocked(b,i)}
+        ${ta(`bondPts.${i}.perks`,2).replace("<textarea","<textarea placeholder=\"Other perks or notes\"")}
+      </div>`).join("")}</div>
+      <div><button class="mini" data-add="bondPts">+ Add bond</button></div>
+      <h2>Bond perks</h2>
+      <div class="tbl">${S.perkTable.slice().map((k,i)=>({k,i})).sort((a,b)=>(+a.k.at||0)-(+b.k.at||0)).map(({k,i})=>`<div class="perk">
+        <div class="row"><span class="bp">${inp(`perkTable.${i}.at`,"number",'inputmode="numeric" aria-label="Points needed"')}</span>${inp(`perkTable.${i}.name`,"text",'placeholder="Perk name"')}<button class="x" data-del="perkTable.${i}" aria-label="Remove perk">×</button></div>
+        ${ta(`perkTable.${i}.desc`,2)}</div>`).join("")}</div>
+      <div class="row"><button class="mini" data-add="perkTable">+ Add perk</button><span class="note">Number = bond points needed</span></div>
+    </div>
+    <div class="card c6"><h2>Skill training</h2>
+      <div class="tbl">${S.training.map((t,i)=>{const n=Math.max(0,Math.min(90,Number(t.normal)||0)),x=Math.max(0,Math.min(10,Number(t.expert)||0));return `<div class="train">
+        <div class="row">${inp(`training.${i}.name`,"text",'placeholder="Skill or tool"')}<button class="x" data-del="training.${i}" aria-label="Remove training">×</button></div>
+        <div class="trow"><span class="lbl">Training</span><span class="bar"><i style="width:${n/90*100}%"></i></span><span class="tn">${inp(`training.${i}.normal`,"number",'inputmode="numeric" min="0" max="90" aria-label="Training points"')}<span>/ 90</span></span></div>
+        <div class="trow"><span class="lbl">Expert</span><span class="bar ex"><i style="width:${x/10*100}%"></i></span><span class="tn">${inp(`training.${i}.expert`,"number",'inputmode="numeric" min="0" max="10" aria-label="Expert training points"')}<span>/ 10</span></span></div>
+      </div>`}).join("")}</div>
+      <div><button class="mini" data-add="training">+ Add training</button></div>
+    </div>
     <div class="card c6"><h2>Personality</h2>
       <div class="f"><label for="i_traits">Traits</label>${ta("traits",3)}</div>
       <div class="f"><label for="i_ideals">Ideals</label>${ta("ideals",2)}</div>
@@ -391,7 +532,7 @@ app.addEventListener("input",e=>{
 app.addEventListener("change",e=>{
   const t=e.target;
   if(t.dataset.k&&t.type==="checkbox"){set(t.dataset.k,t.checked);changed(true);return}
-  if(t.dataset.k&&t.tagName==="SELECT"){set(t.dataset.k,Number(t.value));changed(true);return}
+  if(t.dataset.k&&t.tagName==="SELECT"){set(t.dataset.k,t.hasAttribute("data-str")?t.value:Number(t.value));changed(true);return}
   if(t.dataset.pip){const n=+t.dataset.n;set(t.dataset.pip,t.checked?n:n-1);changed(true);return}
   if(t.dataset.use){const o=get(t.dataset.use),n=+t.dataset.n;o.used=t.checked?n:n-1;changed(true);return}
 });
@@ -399,17 +540,20 @@ app.addEventListener("click",e=>{
   const t=e.target.closest("button"); if(!t) return;
   if(t.dataset.hpact){
     const amt=Math.max(0,Math.floor(Number(document.getElementById("hpAmt").value)||0)); if(!amt) return;
-    let cur=Number(S.hpCur)||0, tmp=Number(S.hpTemp)||0, max=Number(S.hpMax)||0;
+    let cur=Number(S.hpCur)||0, tmp=Number(S.hpTemp)||0, max=hpMax();
     if(t.dataset.hpact==="dmg"){const fromTemp=Math.min(tmp,amt);tmp-=fromTemp;cur=Math.max(0,cur-(amt-fromTemp))}
     if(t.dataset.hpact==="heal"){cur=Math.min(max,cur+amt)}
     if(t.dataset.hpact==="temp"){tmp=Math.max(tmp,amt)}
     S.hpCur=cur;S.hpTemp=tmp;changed(true);
   }
+  if(t.dataset.bp){const b=S.bondPts[+t.dataset.bp];b.points=Math.max(0,(Number(b.points)||0)+Number(t.dataset.d));changed(true)}
+  if(t.dataset.perkuse){const b=S.bondPts[+t.dataset.perkuse];b.used=b.used||{};b.used[t.dataset.perk]=!b.used[t.dataset.perk];changed(true)}
+  if(t.dataset.toggle){set(t.dataset.toggle,!get(t.dataset.toggle));changed(true)}
   if(t.dataset.cycle){const v=get(t.dataset.cycle);set(t.dataset.cycle,(v+1)%3);changed(true)}
   if(t.dataset.del){const [arr,i]=t.dataset.del.split(".");S[arr].splice(+i,1);changed(true)}
-  if(t.dataset.add){const blank={attacks:{name:"",range:"",hit:"",dmg:"",note:""},spells:{lvl:"",name:"",always:false},features:{name:"New feature",text:""},allies:{name:"",rank:""}}[t.dataset.add];S[t.dataset.add].push(blank);changed(true)}
+  if(t.dataset.add){const blank={attacks:{name:"",range:"",hit:"",dmg:"",note:""},spells:{lvl:(document.getElementById("newSpellLvl")||{}).value||"1st",name:"",prep:false,always:false},extraSpells:{lvl:"",name:"",note:"",always:false,uses:1,used:0},features:{name:"New feature",text:""},allies:{name:"",rank:""},bondPts:{name:"",points:0,perks:"",used:{}},training:{name:"",normal:0,expert:0},perkTable:{at:0,name:"",desc:""},acItems:{name:"",type:"add",val:1,worn:true}}[t.dataset.add];S[t.dataset.add].push(blank);changed(true)}
 });
-document.getElementById("btnLong").onclick=()=>{S.hpCur=S.hpMax;S.hpTemp=0;S.slots.forEach(s=>s.used=0);S.lay.cur=S.lay.max;S.cd.used=0;S.sense.used=0;S.deathS=0;S.deathF=0;S.hdUsed=Math.max(0,(Number(S.hdUsed)||0)-Math.max(1,Math.floor(7/2)));changed(true)};
+document.getElementById("btnLong").onclick=()=>{S.hpCur=hpMax();S.extraSpells.forEach(x=>x.used=0);S.bondPts.forEach(b=>b.used={});S.hpTemp=0;S.slots.forEach(s=>s.used=0);S.lay.cur=S.lay.max;S.cd.used=0;S.sense.used=0;S.deathS=0;S.deathF=0;S.hdUsed=Math.max(0,(Number(S.hdUsed)||0)-Math.max(1,Math.floor(7/2)));changed(true)};
 document.getElementById("btnShort").onclick=()=>{S.cd.used=0;changed(true)};
 
 // ---------- saving (on this device) ----------
@@ -425,7 +569,14 @@ function save(){
   try{localStorage.setItem("rov-sheet",JSON.stringify(S));status("Saved","ok")}
   catch(e){status("Couldn't save — use Export","bad")}
 }
-function merge(d){const base=JSON.parse(JSON.stringify(DEFAULT));return Object.assign(base,d)}
+function merge(d){const base=JSON.parse(JSON.stringify(DEFAULT));
+  if(d&&!d.extraSpells){delete d.spells;} // older saves: use the full paladin list and the new additional spells
+  if(d&&d.hpBase==null){const old=Number(d.hpMax)||77;d.hpBase=old-10;d.hpBonus=10;delete d.hpMax}
+  if(d&&!d.acItems){delete d.ac}
+  if(d&&Array.isArray(d.extraSpells))d.extraSpells.forEach(x=>{if(x.uses==null){const n=String(x.name).toLowerCase();x.always=/druidcraft/.test(n);x.uses=/magic missile|beacon of hope/.test(n)?1:0;x.used=0}});
+  if(d&&Array.isArray(d.bondPts))d.bondPts.forEach(b=>{b.used=b.used||{}});
+  if(d&&Array.isArray(d.perkTable))base.perkTable.forEach(k=>{if(!d.perkTable.some(x=>x.name===k.name||Number(x.at)===k.at))d.perkTable.push(k)});
+  return Object.assign(base,d)}
 render();
 try{const l=localStorage.getItem("rov-sheet");if(l){S=merge(JSON.parse(l));render()}status("Saved","ok")}catch(e){status("Couldn't load saved sheet","bad")}
 
@@ -451,55 +602,60 @@ function printSheet(){
   const L=s=>esc(s).replace(/\n/g,"<br>");
   const sk=SKILLS.map(([k,n,a])=>`<tr><td>${S.skills[k].p===2?"◆":S.skills[k].p===1?"●":"○"}</td><td>${n} <small>(${a.toUpperCase()})</small></td><td class="n">${sg(skillTotal(k,a))}</td></tr>`).join("");
   const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${esc(S.name)} — Character Sheet</title>
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=EB+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 @page{size:A4;margin:12mm}
-body{font-family:"IM Fell English",Georgia,serif;color:#2b1d0e;font-size:10.5pt;margin:0;line-height:1.35}
-h1,h2{font-family:"IM Fell English SC",Georgia,serif;margin:0}
-h1{font-size:24pt;color:#8e2b1c;border-bottom:2px solid #8e2b1c;padding-bottom:2pt}
-h2{font-size:10pt;color:#8e2b1c;letter-spacing:.08em;border-bottom:1px solid #b89a6c;margin:8pt 0 4pt;padding-bottom:2pt}
+body{font-family:"EB Garamond",Georgia,serif;color:#211d18;font-size:10.5pt;margin:0;line-height:1.35}
+h1{font-family:UnifrakturMaguntia,Georgia,serif;font-weight:400;margin:0}
+h2{font-family:"EB Garamond",Georgia,serif;font-weight:700;margin:0;letter-spacing:.08em}
+h1{font-size:28pt;color:#7d5f1c;border-bottom:2px solid #a8812a;padding-bottom:2pt}
+h2{font-size:10pt;color:#7d5f1c;border-bottom:1px solid #a8812a;margin:8pt 0 4pt;padding-bottom:2pt}
 .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:2pt 10pt;margin:4pt 0 6pt;font-size:9.5pt}
-.meta b{font-family:"IM Fell English SC",serif;font-size:7pt;color:#6e5638;display:block;letter-spacing:.08em}
+.meta b{font-family:"EB Garamond",serif;font-size:7pt;color:#5d554a;display:block;letter-spacing:.08em}
 .ab{display:grid;grid-template-columns:repeat(6,1fr);gap:5pt;margin:4pt 0}
-.ab div{border:1px solid #b89a6c;border-radius:6pt;text-align:center;padding:3pt}
-.ab b{font-family:"IM Fell English SC",serif;font-size:7pt;color:#6e5638;display:block}
-.ab span{font-family:"IM Fell English SC",serif;font-size:15pt;font-weight:700;color:#8e2b1c;display:block}
+.ab div{border:1px solid #a8996f;border-radius:6pt;text-align:center;padding:3pt}
+.ab b{font-family:"EB Garamond",serif;font-size:7pt;color:#5d554a;display:block}
+.ab span{font-family:"EB Garamond",serif;font-size:15pt;font-weight:700;color:#7d5f1c;display:block}
 .cols{display:grid;grid-template-columns:30% 1fr;gap:12pt}
 .st{display:grid;grid-template-columns:repeat(5,1fr);gap:5pt}
-.st div{border:1px solid #b89a6c;border-radius:6pt;text-align:center;padding:3pt}
-.st b{font-family:"IM Fell English SC",serif;font-size:7pt;color:#6e5638;display:block}
+.st div{border:1px solid #a8996f;border-radius:6pt;text-align:center;padding:3pt}
+.st b{font-family:"EB Garamond",serif;font-size:7pt;color:#5d554a;display:block}
 .st span{font-size:13pt;font-weight:700}
 table{width:100%;border-collapse:collapse;font-size:9.5pt}
 td,th{padding:1.5pt 3pt;text-align:left;vertical-align:top}
-th{font-family:"IM Fell English SC",serif;font-size:7pt;color:#6e5638}
-tr:nth-child(even) td{background:#f4ead3}
+th{font-family:"EB Garamond",serif;font-size:7pt;color:#5d554a}
+tr:nth-child(even) td{background:#f1ecdf}
 .n{text-align:right;font-weight:700}
 .f p{margin:0 0 3pt}
-.f b{color:#8e2b1c}
+.f b{color:#7d5f1c}
 .two{columns:2;column-gap:12pt}
-.box{border:1px solid #b89a6c;border-radius:6pt;padding:4pt 6pt;break-inside:avoid;margin-bottom:5pt}
+.box{border:1px solid #a8996f;border-radius:6pt;padding:4pt 6pt;break-inside:avoid;margin-bottom:5pt}
 .pg{break-before:page}
-.btn{position:fixed;top:10px;right:10px;font:600 14px sans-serif;padding:8px 14px;border-radius:20px;border:none;background:#8e2b1c;color:#fff;cursor:pointer}
+.btn{position:fixed;top:10px;right:10px;font:600 14px sans-serif;padding:8px 14px;border-radius:20px;border:none;background:#7d5f1c;color:#fff;cursor:pointer}
 @media print{.btn{display:none}}
 </style></head><body>
 <h1>${esc(S.name)}</h1>
 <div class="meta"><div><b>CLASS & LEVEL</b>${esc(S.classLevel)}</div><div><b>RACE</b>${esc(S.race)}</div><div><b>BACKGROUND</b>${esc(S.background)}</div><div><b>ALIGNMENT</b>${esc(S.alignment)}</div><div><b>DEITY</b>${esc(S.deity)}</div><div><b>EXPERIENCE</b>${esc(S.xp)}</div><div><b>PLAYER</b>${esc(S.player)}</div><div><b>PROFICIENCY</b>${sg(S.prof)}</div></div>
 <div class="ab">${Object.keys(ABN).map(a=>`<div><b>${ABN[a].toUpperCase()}</b><span>${sg(md(S.abil[a].s))}</span>${S.abil[a].s} · save ${sg(saveTotal(a))}${S.abil[a].save?" ●":""}</div>`).join("")}</div>
-<div class="st"><div><b>AC</b><span>${esc(S.ac)}</span></div><div><b>INITIATIVE</b><span>${sg(md(S.abil.dex.s)+(Number(S.initMisc)||0))}</span> ${esc(S.initNote)}</div><div><b>SPEED</b><span>${esc(S.speed)}</span></div><div><b>HIT POINTS</b><span>${esc(S.hpCur)} / ${esc(S.hpMax)}</span>${S.hpTemp?" +"+esc(S.hpTemp)+" temp":""}</div><div><b>HIT DICE</b><span>${esc(S.hitDice)}</span></div></div>
+<div class="st"><div><b>AC</b><span>${acTotal()}</span> ${S.acItems.filter(x=>x.worn).map(x=>esc(x.name)).join(", ")}</div><div><b>INITIATIVE</b><span>${sg(md(S.abil.dex.s)+(Number(S.initMisc)||0))}</span> ${esc(S.initNote)}</div><div><b>SPEED</b><span>${esc(S.speed)}</span></div><div><b>HIT POINTS</b><span>${esc(S.hpCur)} / ${hpMax()}</span>${S.hpTemp?" +"+esc(S.hpTemp)+" temp":""}</div><div><b>HIT DICE</b><span>${esc(S.hitDice)}</span></div></div>
 <div class="cols">
-<div><h2>SKILLS</h2><table>${sk}</table><p style="font-size:8pt;color:#6e5638">● proficient ◆ expertise · Passive Perception ${passive()}</p>
+<div><h2>SKILLS</h2><table>${sk}</table><p style="font-size:8pt;color:#5d554a">● proficient ◆ expertise · Passive Perception ${passive()}</p>
 <h2>PROFICIENCIES & LANGUAGES</h2><div>${L(S.profLang)}</div>
 <h2>RESOURCES</h2><div>Lay on Hands: ${esc(S.lay.cur)} / ${esc(S.lay.max)}<br>Channel Divinity: ${S.cd.max}/short rest<br>Divine Sense: ${S.sense.max}/long rest<br>${S.slots.map(s=>`Level ${s.lvl} slots: ${"○".repeat(s.max)}`).join("<br>")}<br>Spell save DC ${spellDC()} · Spell attack ${sg(S.prof+md(S.abil.cha.s))}</div>
 </div>
 <div><h2>ATTACKS</h2><table><tr><th>NAME</th><th>RANGE</th><th>HIT</th><th>DAMAGE</th><th>NOTES</th></tr>${S.attacks.map(a=>`<tr><td><b>${esc(a.name)}</b></td><td>${esc(a.range)}</td><td>${esc(a.hit)}</td><td>${esc(a.dmg)}</td><td>${esc(a.note)}</td></tr>`).join("")}</table>
-<h2>SPELLS</h2><table>${S.spells.map(s=>`<tr><td>${s.always?"●":"○"}</td><td>${esc(s.name)}</td><td>${esc(s.lvl)}</td></tr>`).join("")}</table>
+<h2>PALADIN SPELLS</h2><table>${S.spells.slice().sort((a,b)=>lvlKey(a.lvl)-lvlKey(b.lvl)).map(s=>`<tr><td>${s.always?"●":s.prep?"◉":"○"}</td><td>${esc(s.name)}${s.always?" <small>(always prepared)</small>":""}</td><td>${esc(s.lvl)}</td></tr>`).join("")}</table>
+<h2>ADDITIONAL SPELLS</h2><table>${S.extraSpells.slice().sort((a,b)=>lvlKey(a.lvl)-lvlKey(b.lvl)).map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.lvl)}</td><td>${s.always?"Always":(Number(s.uses)||0)+"/day "+"○".repeat(Math.max(0,Number(s.uses)||0))}</td><td>${esc(s.note)}</td></tr>`).join("")}</table>
 <h2>EQUIPMENT</h2><div class="two">${L(S.gear)}</div><p>Coins: ${["cp","sp","ep","gp","pp"].map(c=>S.coins[c]+" "+c).join(" · ")}</p>
 <h2>MAGIC ITEMS</h2><div>${L(S.magic)}</div></div>
 </div>
 <div class="pg"></div>
 <h2>FEATURES & TRAITS</h2><div class="two f">${S.features.map(f=>`<p><b>${esc(f.name)}.</b> ${L(f.text)}</p>`).join("")}</div>
 <div class="cols" style="grid-template-columns:1fr 1fr">
-<div><h2>PERSONALITY</h2><div class="box"><b>Traits</b><br>${L(S.traits)}</div><div class="box"><b>Ideals</b><br>${L(S.ideals)}</div><div class="box"><b>Bonds</b><br>${L(S.bonds)}</div><div class="box"><b>Flaws</b><br>${L(S.flaws)}</div></div>
+<div><h2>BOND POINTS</h2><table>${S.bondPts.map(b=>{const got=S.perkTable.filter(k=>(Number(b.points)||0)>=(Number(k.at)||0)&&k.name).map(k=>esc(k.mystery&&k.name==="???"?"Mystery perk":k.name)).join(", ");return `<tr><td><b>${esc(b.name)}</b>${got?` <small>(${got})</small>`:""}</td><td class="n">${esc(b.points)}</td></tr>${b.perks?`<tr><td colspan="2" style="font-size:9pt">${L(b.perks)}</td></tr>`:""}`}).join("")}</table>
+<h2>BOND PERKS</h2><div class="f">${S.perkTable.slice().sort((a,b)=>a.at-b.at).map(k=>`<p><b>${esc(k.at)} · ${esc(k.name)}.</b> ${k.mystery?"Unknown until unlocked.":L(k.desc)}</p>`).join("")}</div>
+<h2>SKILL TRAINING</h2><table><tr><th>NAME</th><th>TRAINING</th><th>EXPERT</th></tr>${S.training.map(t=>`<tr><td>${esc(t.name)}</td><td>${esc(t.normal)} / 90</td><td>${esc(t.expert)} / 10</td></tr>`).join("")}</table>
+<h2>PERSONALITY</h2><div class="box"><b>Traits</b><br>${L(S.traits)}</div><div class="box"><b>Ideals</b><br>${L(S.ideals)}</div><div class="box"><b>Bonds</b><br>${L(S.bonds)}</div><div class="box"><b>Flaws</b><br>${L(S.flaws)}</div></div>
 <div><h2>APPEARANCE</h2><div class="meta" style="grid-template-columns:repeat(3,1fr)">${Object.entries(S.look).map(([k,v])=>`<div><b>${k.toUpperCase()}</b>${esc(v)}</div>`).join("")}</div>
 <h2>ALLIES & ORGANIZATIONS</h2><table>${S.allies.map(a=>`<tr><td>${esc(a.name)}</td><td class="n">${esc(a.rank)}</td></tr>`).join("")}</table>
 <h2>COMPANIONS</h2><div>${L(S.companions)}</div>
