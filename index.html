@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Borvo Rov</title>
+<meta name="theme-color" content="#3b2a17">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* Papyrus scroll: aged reed paper, iron-gall ink, red rubrication. Single deliberate theme. */
+:root{
+  --paper:#e8d6ac; --paper2:#dcc392; --ink:#3b2a17; --muted:#6e5638; --line:#a8865a;
+  --rubric:#8e2b1c; --leaf:#4a5e2c; --field:rgba(255,248,226,.45);
+  --display:"IM Fell English SC",Georgia,serif; --body:"IM Fell English",Georgia,serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.4;
+  background-color:#2a1d10;
+  background-image:radial-gradient(circle at 50% 0,#4a3520,#1e140a 75%);
+  min-height:100vh;
+}
+.scroll{
+  max-width:1180px;margin:0 auto;padding:22px 26px 110px;position:relative;
+  background-color:var(--paper);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    repeating-linear-gradient(90deg,rgba(120,85,40,.07) 0 2px,transparent 2px 9px),
+    repeating-linear-gradient(0deg,rgba(120,85,40,.05) 0 1px,transparent 1px 14px),
+    radial-gradient(ellipse at center,rgba(255,245,215,.55),rgba(160,115,55,.35) 85%);
+  box-shadow:inset 0 0 70px rgba(90,55,20,.55),0 10px 40px rgba(0,0,0,.6);
+}
+@media (min-width:700px){.scroll{margin:24px auto;border-radius:3px}}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance}
+input,textarea,select{font:inherit;color:var(--ink);background:var(--field);border:none;border-bottom:1px solid var(--line);border-radius:2px;padding:3px 6px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:70px;line-height:1.4;border:1px solid rgba(168,134,90,.6)}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--rubric);outline-offset:1px;background:rgba(255,250,232,.7)}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--rubric);padding:0;flex:none}
+input[type=number]{font-variant-numeric:tabular-nums}
+button,.btnlike{font:inherit;font-size:15px;cursor:pointer;border:1px solid var(--line);background:rgba(255,246,220,.55);color:var(--ink);border-radius:3px;padding:5px 11px}
+button.primary{background:var(--rubric);border-color:var(--rubric);color:#f6e7c4}
+button.mini{padding:1px 8px;font-size:14px}
+button.x{border:none;background:none;color:var(--muted);font-size:20px;padding:0 4px;line-height:1}
+button.x:hover{color:var(--rubric)}
+.top{position:sticky;top:0;z-index:5;background:#2f2112;color:#f0dfb6;border-bottom:2px solid #8a6a3c;padding-top:env(safe-area-inset-top)}
+.top-in{max-width:1180px;margin:0 auto;padding:8px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.top-in .grow{flex:1}
+.top button,.top .btnlike{background:#4a351d;border-color:#8a6a3c;color:#f0dfb6}
+.top button.primary{background:var(--rubric);border-color:#c0583f}
+.pill{font-size:14px;padding:2px 10px;border:1px solid #8a6a3c;border-radius:3px;color:#e3cc98}
+.pill.ok{color:#c9e0a0}.pill.bad{color:#ffb39c}
+.hero{display:grid;gap:10px;padding:8px 0 14px;text-align:center}
+.hero .name input{font-family:var(--display);font-size:clamp(34px,7vw,56px);text-align:center;background:none;border:none;color:var(--rubric);text-shadow:0 1px 0 rgba(255,240,200,.6)}
+.hero::after{content:"❦";display:block;color:var(--rubric);font-size:22px;letter-spacing:12px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;text-align:left}
+.f{display:flex;flex-direction:column;gap:1px}
+.f label,.lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:var(--display)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.card{padding:12px 12px 14px;display:flex;flex-direction:column;gap:10px;border:1px solid rgba(140,100,55,.45);border-radius:2px;background:rgba(255,246,218,.18);box-shadow:inset 0 0 18px rgba(130,90,40,.18)}
+.card h2{font-size:20px;color:var(--rubric);letter-spacing:.06em;display:flex;align-items:center;gap:10px}
+.card h2::before{content:"✦";font-size:13px;color:var(--leaf)}
+.card h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
+@media (max-width:980px){.c3,.c4,.c5{grid-column:span 6}.c7,.c8{grid-column:span 12}}
+@media (max-width:640px){.c3,.c4,.c5,.c6,.c7,.c8{grid-column:span 12}.scroll{padding:16px 14px 110px}}
+.abils{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+@media (max-width:640px){.abils{grid-template-columns:repeat(3,1fr)}}
+.ab{border:1px solid var(--line);border-radius:50% 50% 8px 8px/22% 22% 8px 8px;padding:10px 6px 8px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;background:rgba(255,248,226,.35)}
+.ab .mod{font-family:var(--display);font-size:30px;color:var(--rubric);font-variant-numeric:tabular-nums;line-height:1}
+.ab input[type=number]{text-align:center;width:60px;border:1px solid var(--line);border-radius:20px}
+.ab .save{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px}
+.stat{border:1px solid var(--line);padding:6px;text-align:center;background:rgba(255,248,226,.3);display:flex;flex-direction:column;gap:3px;border-radius:2px}
+.stat .big{font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums;color:var(--rubric)}
+.stat input{text-align:center}
+.hp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hpbar{height:8px;border:1px solid var(--line);background:rgba(255,248,226,.4);overflow:hidden}
+.hpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--rubric),#b8452c);transition:width .3s}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pips{display:flex;gap:4px;align-items:center}
+.skills{display:grid;gap:1px}
+.sk{display:grid;grid-template-columns:42px 1fr 40px 56px;gap:6px;align-items:center;padding:1px 4px}
+.sk:nth-child(odd){background:rgba(160,120,60,.09)}
+.sk .tot{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--display);font-size:18px}
+.sk .ab3{font-size:12px;color:var(--muted)}
+.sk select{padding:1px;font-size:14px}
+.sk input{padding:1px 3px;text-align:center}
+.sk.p .nm{font-style:italic}.sk.e .nm{color:var(--rubric);font-style:italic}
+.tbl{display:flex;flex-direction:column;gap:5px}
+.tr{display:grid;gap:6px;align-items:center}
+.tr.attack{grid-template-columns:1.4fr .7fr .6fr 1.3fr 1.6fr 24px}
+.tr.head{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--display)}
+@media (max-width:640px){.tr.attack{grid-template-columns:1fr 1fr 24px}.tr.attack .hide-s{display:none}.tr.head{display:none}}
+.feat{border-left:2px solid var(--rubric);padding:2px 0 2px 10px;display:flex;flex-direction:column;gap:4px}
+.feat .row{flex-wrap:nowrap}
+.feat .row input{font-family:var(--display);font-size:18px;color:var(--rubric)}
+.spell{display:grid;grid-template-columns:24px 1fr 90px 24px;gap:6px;align-items:center}
+.slots{display:flex;flex-direction:column;gap:6px}
+.slot{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.slot b{font-family:var(--display);font-weight:400;min-width:78px}
+.chk{display:flex;gap:4px}
+.coins{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.coins .f input{text-align:center}
+.note{font-size:14px;color:var(--muted);font-style:italic}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.foot{margin-top:22px;text-align:center;font-size:14px;color:var(--muted);font-style:italic}
+.foot::before{content:"❦";display:block;color:var(--rubric);font-size:20px}
+#printFrame{position:fixed;width:0;height:0;border:0;left:-9999px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="top-in">
+    <strong style="font-family:var(--display);font-size:20px;font-weight:400">Borvo Rov</strong>
+    <span class="pill" id="saveState">Loading…</span>
+    <span class="grow"></span>
+    <button id="btnLong" title="Restore HP, slots, Lay on Hands and resources">Long rest</button>
+    <button id="btnShort" title="Reset Channel Divinity">Short rest</button>
+    <button id="btnExport" title="Save a backup file you can move to another device">Export</button>
+    <label class="btnlike" for="importFile">Import</label><input id="importFile" type="file" accept=".json,application/json" hidden>
+    <button id="btnPrint" class="primary">Print</button>
+  </div>
+</div>
+
+<div class="scroll"><div id="app"></div></div>
+<iframe id="printFrame" title="Print preview" aria-hidden="true"></iframe>
+
+<script>
+// ---------- default data: Rov at level 7 (from his Aurora sheet) ----------
+const DEFAULT = {
+  name:"Borvo Rov", classLevel:"Paladin 7 (Oath of the Ancients)", race:"Human", background:"Hermit",
+  alignment:"Neutral Good", deity:"Rosaceae · Saint Amara", xp:"23000", player:"Efraim",
+  prof:3,
+  abil:{str:{s:16,save:false},dex:{s:10,save:false},con:{s:16,save:false},int:{s:12,save:false},wis:{s:13,save:true},cha:{s:11,save:true}},
+  skills:{
+    acrobatics:{p:0,m:0},animal:{p:0,m:0},arcana:{p:0,m:0},athletics:{p:1,m:0},deception:{p:0,m:0},history:{p:0,m:0},
+    insight:{p:2,m:0},intimidation:{p:0,m:0},investigation:{p:0,m:0},medicine:{p:1,m:0},nature:{p:0,m:1},perception:{p:0,m:1},
+    performance:{p:0,m:0},persuasion:{p:0,m:0},religion:{p:1,m:0},sleight:{p:0,m:0},stealth:{p:0,m:0},survival:{p:2,m:0}
+  },
+  ac:20, initMisc:0, initNote:"Advantage", speed:"30 ft", hpMax:77, hpCur:77, hpTemp:0, hitDice:"7d10", hdUsed:0,
+  deathS:0, deathF:0, inspiration:false, exhaustion:0,
+  spellAbility:"Charisma", slots:[{lvl:1,max:4,used:0},{lvl:2,max:3,used:0}],
+  lay:{max:35,cur:35}, cd:{max:1,used:0}, sense:{max:1,used:0},
+  attacks:[
+    {name:"Warhammer",range:"5 ft",hit:"+6",dmg:"1d8+3 bludgeoning",note:"Versatile 1d10+3"},
+    {name:"Trident",range:"20/60 ft",hit:"+6",dmg:"1d6+3 piercing +1d6 force",note:"Versatile 1d8+3 +1d6 force"},
+    {name:"Sacred Flame",range:"60 ft",hit:"DC 11 Dex",dmg:"2d8 radiant",note:"Blessed Warrior cantrip"}
+  ],
+  spells:[
+    {lvl:"Cantrip",name:"Sacred Flame",always:true},{lvl:"Cantrip",name:"Spare the Dying",always:true},{lvl:"Cantrip",name:"Druidcraft",always:true},
+    {lvl:"1st",name:"Ensnaring Strike",always:true},{lvl:"1st",name:"Speak with Animals",always:true},
+    {lvl:"1st",name:"Bless",always:false},{lvl:"1st",name:"Cure Wounds",always:false},{lvl:"1st",name:"Ceremony",always:false},
+    {lvl:"1st",name:"Magic Missile",always:true},
+    {lvl:"2nd",name:"Misty Step",always:true},{lvl:"2nd",name:"Moonbeam",always:true},{lvl:"2nd",name:"Aid",always:false},
+    {lvl:"3rd",name:"Beacon of Hope",always:true}
+  ],
+  features:[
+    {name:"Boon of Saint Amara",text:"Accepted by Saint Amara and her sisters. Can commune with the saints at their six temples (they may answer), carries an aura, and necrotic or undead foes sometimes flee before he arrives. Since session 73 he can see Amara hovering over him. Senses cryptic callings from the saints."},
+    {name:"Divine Smite",text:"On a melee weapon hit, expend a spell slot: 2d8 radiant for a 1st-level slot, +1d8 per slot level above 1st (max 6d8), +1d8 against undead or fiends."},
+    {name:"Lay on Hands",text:"Pool of 35 HP per long rest. Spend 5 to cure one disease or neutralize one poison. No effect on undead or constructs."},
+    {name:"Extra Attack",text:"Attack twice whenever you take the Attack action."},
+    {name:"Aura of Protection",text:"You and friendly creatures within 10 ft add +1 to saving throws while you're conscious."},
+    {name:"Aura of Warding",text:"You and friendly creatures within 10 ft have resistance to damage from spells."},
+    {name:"Channel Divinity: Nature's Wrath",text:"Spectral vines restrain a creature within 10 ft (Str or Dex save, its choice; repeats at end of each turn)."},
+    {name:"Channel Divinity: Turn the Faithless",text:"Each fey or fiend within 30 ft that can hear you makes a Wis save or is turned for 1 minute; true forms are revealed."},
+    {name:"Divine Sense",text:"Action, 1 per long rest: until the end of your next turn, know the location of celestials, fiends and undead within 60 ft, and consecrated or desecrated places."},
+    {name:"Divine Health",text:"Immune to disease."},
+    {name:"Fighting Style: Blessed Warrior",text:"Sacred Flame and Spare the Dying count as paladin spells (Charisma)."},
+    {name:"Chef",text:"Short rest with ingredients and cook's utensils: food for 7 creatures; each regains an extra 1d8 HP when spending Hit Dice. With an hour of work or a long rest, cook 3 treats (last 8 hours); a bonus action to eat one gives 3 temp HP."},
+    {name:"Skill Expert",text:"Feat."},
+    {name:"Cooking Expertise",text:"Always knows good ingredients. Food keeps an extra 10 days. Can carve some larger creatures (ask the DM). Can combine alchemist's supplies with cook's utensils for edible potions and preservatives."},
+    {name:"Discovery (Hermit)",text:"His seclusion gave him access to a unique and powerful discovery."}
+  ],
+  profLang:"Armor: light, medium, heavy, shields\nWeapons: simple, martial\nTools: cook's utensils, herbalism kit\nLanguages: Common, Elvish, Gnomish",
+  magic:"Animated Shield (attuned)\nShield +2 (attuned)\nMask of Mist (merged with his face; shows when Archfey mist is near)",
+  gear:"Warhammer (his father's smithing hammer)\nTrident\nPlate armor\nBackpack, blanket, 5 candles, tinderbox\n2 days of rations, waterskin\nHempen rope (50 ft)\nCook's utensils\nHis mother's amulet",
+  coins:{cp:0,sp:0,ep:0,gp:0,pp:0},
+  traits:"I feel tremendous empathy for all who suffer.\nI'm oblivious to etiquette and social expectations.",
+  ideals:"Greater Good. My gifts are meant to be shared with all, not used for my own benefit.",
+  bonds:"I entered seclusion because I loved someone I could not have.",
+  flaws:"Now that I've returned to the world, I enjoy its delights a little too much.",
+  look:{gender:"Male",age:"35",height:"180 cm",weight:"79 kg",eyes:"Brown",skin:"White",hair:"Short"},
+  allies:[{name:"The Blue Oath",rank:"−1"},{name:"Hell Flayers",rank:"1"},{name:"Twilight Owls",rank:"2"},{name:"Gilded Compass",rank:"5"},{name:"Iron Circle",rank:"3"}],
+  companions:"Netri — his canary\nKooklos — the ship's monkey, vegetable cutter\nScolera — his ghost wife, bound to his ring",
+  notes:""
+};
+
+const SKILLS = [
+ ["acrobatics","Acrobatics","dex"],["animal","Animal Handling","wis"],["arcana","Arcana","int"],["athletics","Athletics","str"],
+ ["deception","Deception","cha"],["history","History","int"],["insight","Insight","wis"],["intimidation","Intimidation","cha"],
+ ["investigation","Investigation","int"],["medicine","Medicine","wis"],["nature","Nature","int"],["perception","Perception","wis"],
+ ["performance","Performance","cha"],["persuasion","Persuasion","cha"],["religion","Religion","int"],["sleight","Sleight of Hand","dex"],
+ ["stealth","Stealth","dex"],["survival","Survival","wis"]
+];
+const ABN = {str:"Strength",dex:"Dexterity",con:"Constitution",int:"Intelligence",wis:"Wisdom",cha:"Charisma"};
+
+let S = JSON.parse(JSON.stringify(DEFAULT));
+const md = s => Math.floor(((Number(s)||0)-10)/2);
+const sg = n => (n>=0?"+":"")+n;
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function get(path){return path.split(".").reduce((o,k)=>o?.[k],S)}
+function set(path,v){const ks=path.split(".");let o=S;ks.slice(0,-1).forEach(k=>o=o[k]);o[ks.at(-1)]=v}
+
+// ---------- derived ----------
+function skillTotal(k,ab){const sk=S.skills[k];return md(S.abil[ab].s)+(sk.p===1?S.prof:sk.p===2?S.prof*2:0)+(Number(sk.m)||0)}
+function saveTotal(a){return md(S.abil[a].s)+(S.abil[a].save?S.prof:0)}
+function spellDC(){return 8+S.prof+md(S.abil.cha.s)}
+
+// ---------- render ----------
+const app = document.getElementById("app");
+const inp = (path,type="text",extra="") => `<input id="i_${path.replace(/\./g,'_')}" data-k="${path}" type="${type}" value="${esc(get(path))}" ${extra}>`;
+const ta = (path,rows=4) => `<textarea id="i_${path.replace(/\./g,'_')}" data-k="${path}" rows="${rows}">${esc(get(path))}</textarea>`;
+const fld = (label,path,type) => `<div class="f"><label for="i_${path.replace(/\./g,'_')}">${label}</label>${inp(path,type)}</div>`;
+
+function render(){
+  const hpPct = Math.max(0,Math.min(100,(S.hpCur/(S.hpMax||1))*100));
+  app.innerHTML = `
+  <section class="hero">
+    <div class="name">${inp("name")}</div>
+    <div class="meta">
+      ${fld("Class & level","classLevel")}${fld("Race","race")}${fld("Background","background")}
+      ${fld("Alignment","alignment")}${fld("Deity","deity")}${fld("Experience","xp")}${fld("Player","player")}
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="card c12"><h2>Abilities</h2>
+      <div class="abils">${Object.keys(ABN).map(a=>`
+        <div class="ab"><span class="lbl">${ABN[a]}</span>
+          <span class="mod">${sg(md(S.abil[a].s))}</span>
+          ${inp(`abil.${a}.s`,"number",'min="1" max="30" aria-label="'+ABN[a]+' score"')}
+          <label class="save"><input type="checkbox" data-k="abil.${a}.save" ${S.abil[a].save?"checked":""}> Save ${sg(saveTotal(a))}</label>
+        </div>`).join("")}
+      </div>
+    </div>
+
+    <div class="card c7"><h2>Combat</h2>
+      <div class="stats">
+        <div class="stat"><span class="lbl">Armor Class</span>${inp("ac","number")}</div>
+        <div class="stat"><span class="lbl">Initiative</span><span class="big">${sg(md(S.abil.dex.s)+(Number(S.initMisc)||0))}</span><span class="note">${esc(S.initNote)}</span></div>
+        <div class="stat"><span class="lbl">Speed</span>${inp("speed")}</div>
+        <div class="stat"><span class="lbl">Proficiency</span>${inp("prof","number",'min="2" max="6"')}</div>
+        <div class="stat"><span class="lbl">Passive Perc.</span><span class="big">${10+skillTotal("perception","wis")}</span></div>
+      </div>
+      <div class="hp">
+        <div class="f"><label for="i_hpCur">Current HP</label>${inp("hpCur","number")}</div>
+        <div class="f"><label for="i_hpMax">Max HP</label>${inp("hpMax","number")}</div>
+        <div class="f"><label for="i_hpTemp">Temp HP</label>${inp("hpTemp","number")}</div>
+      </div>
+      <div class="hpbar" aria-hidden="true"><i style="width:${hpPct}%"></i></div>
+      <div class="row">
+        <button class="mini" data-hp="-5">−5</button><button class="mini" data-hp="-1">−1</button>
+        <button class="mini" data-hp="1">+1</button><button class="mini" data-hp="5">+5</button>
+        <span class="grow"></span>
+      </div>
+      <div class="res">
+        <div class="f"><label for="i_hitDice">Hit dice</label>${inp("hitDice")}</div>
+        <div class="f"><label for="i_hdUsed">Hit dice spent</label>${inp("hdUsed","number",'min="0"')}</div>
+        <div class="f"><span class="lbl">Death saves</span>
+          <div class="row"><span class="note">✓</span>${pips("deathS",3)}<span class="note">✗</span>${pips("deathF",3)}</div></div>
+        <div class="f"><span class="lbl">Inspiration · Exhaustion</span>
+          <div class="row"><input type="checkbox" data-k="inspiration" aria-label="Inspiration" ${S.inspiration?"checked":""}>${inp("exhaustion","number",'min="0" max="6" style="width:60px" aria-label="Exhaustion"')}</div></div>
+      </div>
+    </div>
+
+    <div class="card c5"><h2>Paladin resources</h2>
+      <div class="slots">
+        <div class="slot"><b>Lay on Hands</b>${inp("lay.cur","number",'style="width:70px" aria-label="Lay on Hands remaining"')} <span class="note">/ ${inp("lay.max","number",'style="width:64px" aria-label="Lay on Hands max"')}</span></div>
+        <div class="slot"><b>Channel Div.</b>${checks("cd")}</div>
+        <div class="slot"><b>Divine Sense</b>${checks("sense")}</div>
+        ${S.slots.map((sl,i)=>`<div class="slot"><b>Level ${sl.lvl} slots</b>${checks("slots."+i)}<span class="note">max</span>${inp(`slots.${i}.max`,"number",'min="0" max="9" style="width:56px" aria-label="Level '+sl.lvl+' slots max"')}</div>`).join("")}
+      </div>
+      <div class="note">Spell save DC <b>${spellDC()}</b> · Spell attack <b>${sg(S.prof+md(S.abil.cha.s))}</b> · Prepared paladin spells <b>${Math.max(1,md(S.abil.cha.s)+Math.floor(7/2))}</b></div>
+    </div>
+
+    <div class="card c4"><h2>Skills</h2>
+      <div class="skills">${SKILLS.map(([k,n,a])=>{const sk=S.skills[k];return `
+        <div class="sk ${sk.p===1?"p":sk.p===2?"e":""}">
+          <span class="tot">${sg(skillTotal(k,a))}</span>
+          <span class="nm">${n} <span class="ab3">${a.toUpperCase()}</span></span>
+          <input type="number" data-k="skills.${k}.m" value="${sk.m}" aria-label="${n} bonus" title="Extra bonus">
+          <select data-k="skills.${k}.p" data-num aria-label="${n} proficiency">
+            <option value="0" ${sk.p===0?"selected":""}>–</option><option value="1" ${sk.p===1?"selected":""}>Prof</option><option value="2" ${sk.p===2?"selected":""}>Exp</option>
+          </select></div>`}).join("")}
+      </div>
+      <div class="note">Middle box: extra bonus from items or feats.</div>
+    </div>
+
+    <div class="card c8"><h2>Attacks</h2>
+      <div class="tbl">
+        <div class="tr attack head"><span>Name</span><span class="hide-s">Range</span><span>Hit / DC</span><span class="hide-s">Damage</span><span class="hide-s">Notes</span><span></span></div>
+        ${S.attacks.map((a,i)=>`<div class="tr attack">
+          ${inp(`attacks.${i}.name`)}<span class="hide-s">${inp(`attacks.${i}.range`)}</span>${inp(`attacks.${i}.hit`)}
+          <span class="hide-s">${inp(`attacks.${i}.dmg`)}</span><span class="hide-s">${inp(`attacks.${i}.note`)}</span>
+          <button class="x" data-del="attacks.${i}" aria-label="Remove attack">×</button></div>`).join("")}
+      </div>
+      <div><button class="mini" data-add="attacks">+ Add attack</button></div>
+
+      <h2>Spells</h2>
+      <div class="tbl">${S.spells.map((s,i)=>`<div class="spell">
+          <input type="checkbox" data-k="spells.${i}.always" ${s.always?"checked":""} title="Always prepared" aria-label="Always prepared">
+          ${inp(`spells.${i}.name`)}${inp(`spells.${i}.lvl`)}
+          <button class="x" data-del="spells.${i}" aria-label="Remove spell">×</button></div>`).join("")}
+      </div>
+      <div class="row"><button class="mini" data-add="spells">+ Add spell</button><span class="note">Tick = always prepared</span></div>
+    </div>
+
+    <div class="card c12"><h2>Features & traits</h2>
+      <div class="grid">${S.features.map((f,i)=>`<div class="feat c6">
+        <div class="row">${inp(`features.${i}.name`)}<button class="x" data-del="features.${i}" aria-label="Remove feature">×</button></div>
+        ${ta(`features.${i}.text`,3)}</div>`).join("")}
+      </div>
+      <div><button class="mini" data-add="features">+ Add feature</button></div>
+    </div>
+
+    <div class="card c4"><h2>Equipment</h2>${ta("gear",9)}
+      <div class="coins">${["cp","sp","ep","gp","pp"].map(c=>`<div class="f"><label for="i_coins_${c}">${c.toUpperCase()}</label>${inp("coins."+c,"number",'min="0"')}</div>`).join("")}</div>
+    </div>
+    <div class="card c4"><h2>Magic items</h2>${ta("magic",5)}<h2>Proficiencies & languages</h2>${ta("profLang",5)}</div>
+    <div class="card c4"><h2>Allies & organizations</h2>
+      <div class="tbl">${S.allies.map((a,i)=>`<div class="spell" style="grid-template-columns:1fr 70px 24px">${inp(`allies.${i}.name`)}${inp(`allies.${i}.rank`)}<button class="x" data-del="allies.${i}" aria-label="Remove">×</button></div>`).join("")}</div>
+      <div><button class="mini" data-add="allies">+ Add</button></div>
+      <h2>Companions</h2>${ta("companions",4)}
+    </div>
+
+    <div class="card c6"><h2>Personality</h2>
+      <div class="f"><label for="i_traits">Traits</label>${ta("traits",3)}</div>
+      <div class="f"><label for="i_ideals">Ideals</label>${ta("ideals",2)}</div>
+      <div class="f"><label for="i_bonds">Bonds</label>${ta("bonds",2)}</div>
+      <div class="f"><label for="i_flaws">Flaws</label>${ta("flaws",2)}</div>
+    </div>
+    <div class="card c6"><h2>Appearance</h2>
+      <div class="meta">${["gender","age","height","weight","eyes","skin","hair"].map(k=>fld(k[0].toUpperCase()+k.slice(1),"look."+k)).join("")}</div>
+      <h2>Notes</h2>${ta("notes",6)}
+    </div>
+  </div>
+  <p class="foot">Changes save on this device automatically. Use Export and Import to move your sheet between phone and PC.</p>`;
+}
+function pips(path,n){let h="";for(let i=1;i<=n;i++)h+=`<input type="checkbox" data-pip="${path}" data-n="${i}" ${get(path)>=i?"checked":""} aria-label="${path} ${i}">`;return `<span class="pips">${h}</span>`}
+function checks(path){const o=get(path);let h="";for(let i=1;i<=o.max;i++)h+=`<input type="checkbox" data-use="${path}" data-n="${i}" ${o.used>=i?"checked":""} aria-label="used ${i}">`;return `<span class="chk">${h||'<span class="note">none</span>'}</span>`}
+
+// ---------- events ----------
+let focusId=null, caret=null;
+function rerender(){
+  const a=document.activeElement; focusId=a&&a.id||null;
+  try{caret=a&&a.selectionStart!=null?[a.selectionStart,a.selectionEnd]:null}catch(e){caret=null}
+  render();
+  if(focusId){const el=document.getElementById(focusId);if(el){el.focus();try{if(caret)el.setSelectionRange(caret[0],caret[1])}catch(e){}}}
+}
+app.addEventListener("input",e=>{
+  const t=e.target,k=t.dataset.k; if(!k) return;
+  if(t.type==="checkbox") return;
+  let v=t.value; if(t.type==="number"||t.hasAttribute("data-num")) v=v===""?0:Number(v);
+  set(k,v); changed(t.type==="number"||t.tagName==="SELECT");
+});
+app.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset.k&&t.type==="checkbox"){set(t.dataset.k,t.checked);changed(true);return}
+  if(t.dataset.k&&t.tagName==="SELECT"){set(t.dataset.k,Number(t.value));changed(true);return}
+  if(t.dataset.pip){const n=+t.dataset.n;set(t.dataset.pip,t.checked?n:n-1);changed(true);return}
+  if(t.dataset.use){const o=get(t.dataset.use),n=+t.dataset.n;o.used=t.checked?n:n-1;changed(true);return}
+});
+app.addEventListener("click",e=>{
+  const t=e.target.closest("button"); if(!t) return;
+  if(t.dataset.hp){S.hpCur=Math.max(0,Math.min(S.hpMax,(Number(S.hpCur)||0)+Number(t.dataset.hp)));changed(true)}
+  if(t.dataset.del){const [arr,i]=t.dataset.del.split(".");S[arr].splice(+i,1);changed(true)}
+  if(t.dataset.add){const blank={attacks:{name:"",range:"",hit:"",dmg:"",note:""},spells:{lvl:"",name:"",always:false},features:{name:"New feature",text:""},allies:{name:"",rank:""}}[t.dataset.add];S[t.dataset.add].push(blank);changed(true)}
+});
+document.getElementById("btnLong").onclick=()=>{S.hpCur=S.hpMax;S.hpTemp=0;S.slots.forEach(s=>s.used=0);S.lay.cur=S.lay.max;S.cd.used=0;S.sense.used=0;S.deathS=0;S.deathF=0;S.hdUsed=Math.max(0,(Number(S.hdUsed)||0)-Math.max(1,Math.floor(7/2)));changed(true)};
+document.getElementById("btnShort").onclick=()=>{S.cd.used=0;changed(true)};
+
+// ---------- saving (on this device) ----------
+const pill=document.getElementById("saveState");
+function status(t,cls){pill.textContent=t;pill.className="pill "+(cls||"")}
+let timer=null;
+function changed(re){ if(re) rerender(); else softUpdate(); schedule(); }
+function softUpdate(){ clearTimeout(softUpdate.t); softUpdate.t=setTimeout(rerender,600); }
+function schedule(){ status("Unsaved…"); clearTimeout(timer); timer=setTimeout(save,700); }
+function save(){
+  try{localStorage.setItem("rov-sheet",JSON.stringify(S));status("Saved","ok")}
+  catch(e){status("Couldn't save — use Export","bad")}
+}
+function merge(d){const base=JSON.parse(JSON.stringify(DEFAULT));return Object.assign(base,d)}
+render();
+try{const l=localStorage.getItem("rov-sheet");if(l){S=merge(JSON.parse(l));render()}status("Saved","ok")}catch(e){status("Couldn't load saved sheet","bad")}
+
+document.getElementById("btnExport").onclick=()=>{
+  const blob=new Blob([JSON.stringify(S,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download="Borvo_Rov_sheet_"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  status("Backup exported","ok");
+};
+document.getElementById("importFile").onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);if(!d||!d.abil)throw 0;S=merge(d);rerender();save();status("Sheet imported","ok")}catch(err){status("That file isn't a sheet backup","bad")}};
+  r.readAsText(f); e.target.value="";
+};
+document.getElementById("btnPrint").onclick=()=>printSheet();
+
+if("serviceWorker" in navigator&&location.protocol.startsWith("http")){navigator.serviceWorker.register("sw.js").catch(()=>{})}
+
+// ---------- printable file ----------
+function printSheet(){
+  const L=s=>esc(s).replace(/\n/g,"<br>");
+  const sk=SKILLS.map(([k,n,a])=>`<tr><td>${S.skills[k].p===2?"◆":S.skills[k].p===1?"●":"○"}</td><td>${n} <small>(${a.toUpperCase()})</small></td><td class="n">${sg(skillTotal(k,a))}</td></tr>`).join("");
+  const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${esc(S.name)} — Character Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:12mm}
+body{font-family:"IM Fell English",Georgia,serif;color:#2b1d0e;font-size:10.5pt;margin:0;line-height:1.35}
+h1,h2{font-family:"IM Fell English SC",Georgia,serif;margin:0}
+h1{font-size:24pt;color:#8e2b1c;border-bottom:2px solid #8e2b1c;padding-bottom:2pt}
+h2{font-size:10pt;color:#8e2b1c;letter-spacing:.08em;border-bottom:1px solid #b89a6c;margin:8pt 0 4pt;padding-bottom:2pt}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:2pt 10pt;margin:4pt 0 6pt;font-size:9.5pt}
+.meta b{font-family:"IM Fell English SC",serif;font-size:7pt;color:#6e5638;display:block;letter-spacing:.08em}
+.ab{display:grid;grid-template-columns:repeat(6,1fr);gap:5pt;margin:4pt 0}
+.ab div{border:1px solid #b89a6c;border-radius:6pt;text-align:center;padding:3pt}
+.ab b{font-family:"IM Fell English SC",serif;font-size:7pt;color:#6e5638;display:block}
+.ab span{font-family:"IM Fell English SC",serif;font-size:15pt;font-weight:700;color:#8e2b1c;display:block}
+.cols{display:grid;grid-template-columns:30% 1fr;gap:12pt}
+.st{display:grid;grid-template-columns:repeat(5,1fr);gap:5pt}
+.st div{border:1px solid #b89a6c;border-radius:6pt;text-align:center;padding:3pt}
+.st b{font-family:"IM Fell English SC",serif;font-size:7pt;color:#6e5638;display:block}
+.st span{font-size:13pt;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:9.5pt}
+td,th{padding:1.5pt 3pt;text-align:left;vertical-align:top}
+th{font-family:"IM Fell English SC",serif;font-size:7pt;color:#6e5638}
+tr:nth-child(even) td{background:#f4ead3}
+.n{text-align:right;font-weight:700}
+.f p{margin:0 0 3pt}
+.f b{color:#8e2b1c}
+.two{columns:2;column-gap:12pt}
+.box{border:1px solid #b89a6c;border-radius:6pt;padding:4pt 6pt;break-inside:avoid;margin-bottom:5pt}
+.pg{break-before:page}
+.btn{position:fixed;top:10px;right:10px;font:600 14px sans-serif;padding:8px 14px;border-radius:20px;border:none;background:#8e2b1c;color:#fff;cursor:pointer}
+@media print{.btn{display:none}}
+</style></head><body>
+<h1>${esc(S.name)}</h1>
+<div class="meta"><div><b>CLASS & LEVEL</b>${esc(S.classLevel)}</div><div><b>RACE</b>${esc(S.race)}</div><div><b>BACKGROUND</b>${esc(S.background)}</div><div><b>ALIGNMENT</b>${esc(S.alignment)}</div><div><b>DEITY</b>${esc(S.deity)}</div><div><b>EXPERIENCE</b>${esc(S.xp)}</div><div><b>PLAYER</b>${esc(S.player)}</div><div><b>PROFICIENCY</b>${sg(S.prof)}</div></div>
+<div class="ab">${Object.keys(ABN).map(a=>`<div><b>${ABN[a].toUpperCase()}</b><span>${sg(md(S.abil[a].s))}</span>${S.abil[a].s} · save ${sg(saveTotal(a))}${S.abil[a].save?" ●":""}</div>`).join("")}</div>
+<div class="st"><div><b>AC</b><span>${esc(S.ac)}</span></div><div><b>INITIATIVE</b><span>${sg(md(S.abil.dex.s)+(Number(S.initMisc)||0))}</span> ${esc(S.initNote)}</div><div><b>SPEED</b><span>${esc(S.speed)}</span></div><div><b>HIT POINTS</b><span>${esc(S.hpCur)} / ${esc(S.hpMax)}</span>${S.hpTemp?" +"+esc(S.hpTemp)+" temp":""}</div><div><b>HIT DICE</b><span>${esc(S.hitDice)}</span></div></div>
+<div class="cols">
+<div><h2>SKILLS</h2><table>${sk}</table><p style="font-size:8pt;color:#6e5638">● proficient ◆ expertise · Passive Perception ${10+skillTotal("perception","wis")}</p>
+<h2>PROFICIENCIES & LANGUAGES</h2><div>${L(S.profLang)}</div>
+<h2>RESOURCES</h2><div>Lay on Hands: ${esc(S.lay.cur)} / ${esc(S.lay.max)}<br>Channel Divinity: ${S.cd.max}/short rest<br>Divine Sense: ${S.sense.max}/long rest<br>${S.slots.map(s=>`Level ${s.lvl} slots: ${"○".repeat(s.max)}`).join("<br>")}<br>Spell save DC ${spellDC()} · Spell attack ${sg(S.prof+md(S.abil.cha.s))}</div>
+</div>
+<div><h2>ATTACKS</h2><table><tr><th>NAME</th><th>RANGE</th><th>HIT</th><th>DAMAGE</th><th>NOTES</th></tr>${S.attacks.map(a=>`<tr><td><b>${esc(a.name)}</b></td><td>${esc(a.range)}</td><td>${esc(a.hit)}</td><td>${esc(a.dmg)}</td><td>${esc(a.note)}</td></tr>`).join("")}</table>
+<h2>SPELLS</h2><table>${S.spells.map(s=>`<tr><td>${s.always?"●":"○"}</td><td>${esc(s.name)}</td><td>${esc(s.lvl)}</td></tr>`).join("")}</table>
+<h2>EQUIPMENT</h2><div class="two">${L(S.gear)}</div><p>Coins: ${["cp","sp","ep","gp","pp"].map(c=>S.coins[c]+" "+c).join(" · ")}</p>
+<h2>MAGIC ITEMS</h2><div>${L(S.magic)}</div></div>
+</div>
+<div class="pg"></div>
+<h2>FEATURES & TRAITS</h2><div class="two f">${S.features.map(f=>`<p><b>${esc(f.name)}.</b> ${L(f.text)}</p>`).join("")}</div>
+<div class="cols" style="grid-template-columns:1fr 1fr">
+<div><h2>PERSONALITY</h2><div class="box"><b>Traits</b><br>${L(S.traits)}</div><div class="box"><b>Ideals</b><br>${L(S.ideals)}</div><div class="box"><b>Bonds</b><br>${L(S.bonds)}</div><div class="box"><b>Flaws</b><br>${L(S.flaws)}</div></div>
+<div><h2>APPEARANCE</h2><div class="meta" style="grid-template-columns:repeat(3,1fr)">${Object.entries(S.look).map(([k,v])=>`<div><b>${k.toUpperCase()}</b>${esc(v)}</div>`).join("")}</div>
+<h2>ALLIES & ORGANIZATIONS</h2><table>${S.allies.map(a=>`<tr><td>${esc(a.name)}</td><td class="n">${esc(a.rank)}</td></tr>`).join("")}</table>
+<h2>COMPANIONS</h2><div>${L(S.companions)}</div>
+${S.notes?`<h2>NOTES</h2><div>${L(S.notes)}</div>`:""}</div>
+</div>
+</body></html>`;
+  const fr=document.getElementById("printFrame");
+  fr.srcdoc=html;
+  fr.onload=()=>{setTimeout(()=>{try{fr.contentWindow.focus();fr.contentWindow.print()}catch(e){const w=window.open("","_blank");if(w){w.document.write(html);w.document.close();setTimeout(()=>w.print(),600)}}},500)};
+}
+</script>
+</body>
+</html>
