@@ -148,6 +148,14 @@ button.tag.on{background:linear-gradient(#e2bd62,#8a6420);border-color:#5e4313;c
 .stepper button{padding:2px 8px;min-width:34px;font-family:var(--body);font-weight:700}
 .stepper .val{min-width:46px;text-align:center;font-family:var(--display);font-size:26px;color:var(--gold2);font-variant-numeric:tabular-nums}
 .bond textarea{min-height:44px}
+.bpval{font-family:var(--display);font-size:32px;color:var(--gold2);min-width:56px;text-align:right;font-variant-numeric:tabular-nums;flex:none;line-height:1}
+.bstep{flex-wrap:nowrap}
+.bstep button{min-width:46px;font-size:20px;font-family:var(--body);font-weight:700}
+.bpamt{width:86px!important;text-align:center;flex:none;border:1px solid var(--line)!important}
+.readbtn{grid-column:1/-1;justify-self:start;font-size:14px;padding:0 10px;min-height:0!important;background:none;border-color:var(--line);color:var(--gold)}
+.readbtn.open{border-color:var(--gold2);color:var(--gold2)}
+.sdesc{grid-column:1/-1}
+.sdesc textarea{min-height:120px;font-size:16px;border-color:var(--gold);background:rgba(0,0,0,.4);white-space:pre-wrap}
 .chips{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
 .chip{font-family:var(--gothic);font-size:15px;padding:1px 10px;border:1px solid var(--gold2);background:linear-gradient(#3a1018,#1a080c);color:var(--gold2);min-height:0}
 .chip::before{content:"✠ ";color:var(--crimson)}
@@ -207,7 +215,6 @@ button.tag.on{background:linear-gradient(#e2bd62,#8a6420);border-color:#5e4313;c
 <body>
 <div class="top">
   <div class="top-in">
-    <strong class="brand">Borvo Rov</strong>
     <span class="pill" id="saveState">Loading…</span>
     <span class="grow"></span>
     <button id="btnLong" title="Restore HP, slots, Lay on Hands and resources">Long rest</button>
@@ -294,6 +301,7 @@ const DEFAULT = {
   ]
 };
 
+const SPELL_SUMMARY = {"Sacred Flame": "1 action · 60 ft · instant · V, S\nA flame of radiance falls on a creature you can see. It makes a Dexterity save (cover doesn't help) or takes 2d8 radiant damage at Rov's level (1d8 at levels 1–4, 3d8 from 11, 4d8 from 17).", "Spare the Dying": "1 action · touch · instant · V, S\nA living creature at 0 HP becomes stable. Does nothing to undead or constructs.", "Druidcraft": "1 action · 30 ft · instant · V, S\nSmall nature magic: predict the weather for the next 24 hours, make a flower bloom or a seed pod open, create a harmless sensory effect (falling leaves, a breeze, an animal sound, a faint smell), or light or put out a candle, torch or small campfire.", "Bless": "1 action · 30 ft · concentration, up to 1 minute · V, S, M (holy water)\nUp to three creatures add 1d4 to their attack rolls and saving throws while it lasts. One more creature for each slot level above 1st.", "Ceremony": "1 hour (ritual) · touch · instant · V, S, M (25 gp of powdered silver, used up)\nPerform one rite: Atonement (DC 20 Insight to restore a willing creature's alignment), Bless Water (a vial becomes holy water), Coming of Age (+1d4 to one ability check within 24 hours), Dedication (+1d4 to saves for 24 hours), Funeral Rite (a corpse can't become undead for 7 days), or Wedding (the couple gain +2 AC while within 30 ft of each other for 7 days).", "Command": "1 action · 60 ft · 1 round · V\nSpeak a one-word command. The target makes a Wisdom save or follows it on its next turn — e.g. approach, drop, flee, grovel, halt. No effect on undead, on creatures that don't understand you, or if the order is directly harmful to it. One more creature for each slot level above 1st.", "Compelled Duel": "1 bonus action · 30 ft · concentration, up to 1 minute · V\nA creature makes a Wisdom save or is drawn to fight you: it has disadvantage on attacks against anyone but you, and must save again to move more than 30 ft away from you. Ends if you attack someone else, cast a spell on another enemy, an ally harms the target, or you end your turn more than 30 ft from it.", "Cure Wounds": "1 action · touch · instant · V, S\nA creature regains 1d8 + your spellcasting modifier HP (1d8 for Rov at Charisma +0). +1d8 for each slot level above 1st. No effect on undead or constructs.", "Detect Evil and Good": "1 action · self · concentration, up to 10 minutes · V, S\nYou know whether an aberration, celestial, elemental, fey, fiend or undead is within 30 ft and where it is, and sense consecrated or desecrated places. Blocked by 1 ft of stone, 1 inch of metal, thin lead, or 3 ft of wood or earth.", "Detect Magic": "1 action (ritual) · self · concentration, up to 10 minutes · V, S\nYou sense magic within 30 ft. Use an action to see the faint aura around a magical creature or object and learn its school of magic. Same blockers as Detect Evil and Good.", "Detect Poison and Disease": "1 action (ritual) · self · concentration, up to 10 minutes · V, S, M (a yew leaf)\nYou sense poisons, poisonous or venomous creatures, and diseases within 30 ft, and learn what kind each is. Same blockers as Detect Evil and Good.", "Divine Favor": "1 bonus action · self · concentration, up to 1 minute · V, S\nYour weapon attacks deal an extra 1d4 radiant damage on a hit.", "Ensnaring Strike": "1 bonus action · self · concentration, up to 1 minute · V\nThe next time you hit with a weapon, thorny vines grab the target: Strength save (advantage if Large or bigger) or it's restrained. While restrained it takes 1d6 piercing at the start of each of its turns. It, or a creature that can reach it, can use an action to make a Strength check against your spell DC to tear free. +1d6 for each slot level above 1st.", "Heroism": "1 action · touch · concentration, up to 1 minute · V, S\nA willing creature can't be frightened and gains temporary HP equal to your spellcasting modifier at the start of each of its turns (0 for Rov at Charisma +0). One more creature for each slot level above 1st.", "Protection from Evil and Good": "1 action · touch · concentration, up to 10 minutes · V, S, M (holy water or powdered silver and iron, used up)\nAberrations, celestials, elementals, fey, fiends and undead have disadvantage on attacks against the target, and can't charm, frighten or possess it. If it's already under such an effect, it gets advantage on any new save against it.", "Purify Food and Drink": "1 action (ritual) · 10 ft · instant · V, S\nAll ordinary food and drink in a 5-ft sphere is cleansed of poison and disease.", "Searing Smite": "1 bonus action · self · concentration, up to 1 minute · V\nYour next melee weapon hit deals an extra 1d6 fire and sets the target alight. At the start of each of its turns it makes a Constitution save or takes 1d6 fire; a success, or anyone using an action to douse it, ends the spell. +1d6 initial damage for each slot level above 1st.", "Shield of Faith": "1 bonus action · 60 ft · concentration, up to 10 minutes · V, S, M (a small prayer parchment)\nA shimmering field gives one creature +2 AC.", "Speak with Animals": "1 action (ritual) · self · 10 minutes · V, S\nYou can understand and talk with beasts. Most know little beyond their surroundings and survival, but they may share what they've seen or help you.", "Thunderous Smite": "1 bonus action · self · concentration, up to 1 minute · V\nYour next melee weapon hit rings out (heard 300 ft away) and deals an extra 2d6 thunder. The target makes a Strength save or is pushed 10 ft away and knocked prone.", "Wrathful Smite": "1 bonus action · self · concentration, up to 1 minute · V\nYour next melee weapon hit deals an extra 1d6 psychic. The target makes a Wisdom save or is frightened of you until the spell ends; it can use an action to make a Wisdom check against your spell DC to steel itself.", "Aid": "1 action · 30 ft · 8 hours · V, S, M (a strip of white cloth)\nUp to three creatures each gain +5 to their maximum and current HP. +5 more for each slot level above 2nd. (Add it to the bonus max HP box.)", "Branding Smite": "1 bonus action · self · concentration, up to 1 minute · V\nYour next weapon hit deals an extra 2d6 radiant. An invisible target becomes visible, and the target sheds dim light in 5 ft and can't turn invisible while the spell lasts. +1d6 for each slot level above 2nd.", "Find Steed": "10 minutes · 30 ft · instant · V, S\nA loyal spirit steed appears: a warhorse, pony, camel, elk or mastiff (your choice), with Intelligence 6 and the type celestial, fey or fiend. You share a telepathic bond within 1 mile, and spells you cast on yourself can also affect it. If it dies or is dismissed, cast again to recall it.", "Lesser Restoration": "1 action · touch · instant · V, S\nEnd one disease, or one of these conditions: blinded, deafened, paralyzed or poisoned.", "Locate Object": "1 action · self · concentration, up to 10 minutes · V, S, M (a forked twig)\nYou sense the direction of an object you're familiar with within 1,000 ft, or the nearest of a kind of object you've seen up close. Thin lead blocks it.", "Magic Weapon": "1 bonus action · touch · concentration, up to 1 hour · V, S\nA nonmagical weapon becomes a +1 magic weapon (bonus to attack and damage). +2 with a 4th-level slot, +3 with a 6th-level slot.", "Misty Step": "1 bonus action · self · instant · V\nWreathed in silver mist, you teleport up to 30 ft to an unoccupied space you can see.", "Moonbeam": "1 action · 120 ft · concentration, up to 1 minute · V, S, M (a moonseed leaf)\nA 5-ft-radius, 40-ft-high column of pale light. A creature entering it for the first time on a turn, or starting its turn there, makes a Constitution save: 2d10 radiant on a fail, half on a success. Shapechangers save with disadvantage and are forced back to their true form. Use an action to move the beam up to 60 ft. +1d10 for each slot level above 2nd.", "Protection from Poison": "1 action · touch · 1 hour · V, S\nNeutralize one poison affecting the creature. For the duration it has advantage on saves against being poisoned and resistance to poison damage.", "Zone of Truth": "1 action · 60 ft · 10 minutes · V, S\nA 15-ft-radius sphere. A creature entering it or starting its turn there makes a Charisma save or can't knowingly lie while inside. You know who passed and who failed. Affected creatures can still dodge questions or stay silent.", "Magic Missile": "1 action · 120 ft · instant · V, S\nThree glowing darts that always hit, each dealing 1d4 + 1 force. Aim them at one creature or split them. One more dart for each slot level above 1st. (Rov: once per day.)", "Beacon of Hope": "1 action · 30 ft · concentration, up to 1 minute · V, S\nAny number of creatures in range gain advantage on Wisdom saves and death saving throws, and whenever they're healed they regain the maximum possible HP. (Rov: once per day.)"};
 const SKILLS = [
  ["acrobatics","Acrobatics","dex"],["animal","Animal Handling","wis"],["arcana","Arcana","int"],["athletics","Athletics","str"],
  ["deception","Deception","cha"],["history","History","int"],["insight","Insight","wis"],["intimidation","Intimidation","cha"],
@@ -303,7 +311,10 @@ const SKILLS = [
 ];
 const ABN = {str:"Strength",dex:"Dexterity",con:"Constitution",int:"Intelligence",wis:"Wisdom",cha:"Charisma"};
 
+DEFAULT.spells.forEach(x=>x.desc=SPELL_SUMMARY[x.name]||"");
+DEFAULT.extraSpells.forEach(x=>x.desc=SPELL_SUMMARY[x.name]||"");
 let S = JSON.parse(JSON.stringify(DEFAULT));
+const openSpell=new Set(); const bpAmt={};
 const md = s => Math.floor(((Number(s)||0)-10)/2);
 const sg = n => (n>=0?"+":"")+n;
 const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -443,7 +454,9 @@ function render(){
           <input type="checkbox" data-k="spells.${i}.prep" ${x.prep||x.always?"checked":""} ${x.always?"disabled":""} aria-label="Prepared">
           ${inp(`spells.${i}.name`)}
           <button class="tag ${x.always?"on":""}" data-toggle="spells.${i}.always" title="Always prepared">${x.always?"Always":"–"}</button>
-          <button class="x" data-del="spells.${i}" aria-label="Remove spell">×</button></div>`)}
+          <button class="x" data-del="spells.${i}" aria-label="Remove spell">×</button>
+          <button class="readbtn${openSpell.has("spells."+i)?" open":""}" data-read="spells.${i}">${openSpell.has("spells."+i)?"Close":"Read"}${x.desc?"":" · empty"}</button>
+          ${openSpell.has("spells."+i)?`<div class="sdesc">${ta(`spells.${i}.desc`,5).replace("<textarea","<textarea placeholder=\"Write or paste what this spell does\"")}</div>`:""}</div>`)}
       <div class="row"><input id="newSpellLvl" placeholder="Level" style="width:90px" aria-label="New spell level"><button class="mini" data-add="spells">+ Add paladin spell</button></div>
 
       <h2>Additional spells</h2>
@@ -452,7 +465,9 @@ function render(){
           <span class="e-note">${inp(`extraSpells.${i}.note`,"text",'placeholder="Source"')}</span>
           <span class="e-tags row"><button class="tag ${x.always?"on":""}" data-toggle="extraSpells.${i}.always">${x.always?"Always":"–"}</button>
           ${x.always?"":`<span class="uses">${inp(`extraSpells.${i}.uses`,"number",'inputmode="numeric" min="0" aria-label="Uses per day"')}/day ${c}</span>`}</span>
-          <button class="x" data-del="extraSpells.${i}" aria-label="Remove spell">×</button></div>`})}
+          <button class="x" data-del="extraSpells.${i}" aria-label="Remove spell">×</button>
+          <button class="readbtn${openSpell.has("extraSpells."+i)?" open":""}" data-read="extraSpells.${i}">${openSpell.has("extraSpells."+i)?"Close":"Read"}${x.desc?"":" · empty"}</button>
+          ${openSpell.has("extraSpells."+i)?`<div class="sdesc">${ta(`extraSpells.${i}.desc`,5).replace("<textarea","<textarea placeholder=\"Write or paste what this spell does\"")}</div>`:""}</div>`})}
       <div><button class="mini" data-add="extraSpells">+ Add additional spell</button></div>
     </div>
 
@@ -477,8 +492,9 @@ function render(){
     <div class="card c6"><h2>Bond points</h2>
       <div class="tbl">${S.bondPts.map((b,i)=>`<div class="bond">
         <div class="row">${inp(`bondPts.${i}.name`,"text",'placeholder="Name"')}
-          <span class="stepper"><button data-bp="${i}" data-d="-1" aria-label="Remove a bond point">−</button><span class="val" aria-label="Bond points">${Number(b.points)||0}</span><button data-bp="${i}" data-d="1" aria-label="Add a bond point">+</button></span>
+          <span class="bpval" aria-label="Bond points">${Number(b.points)||0}</span>
           <button class="x" data-del="bondPts.${i}" aria-label="Remove bond">×</button></div>
+        <div class="row bstep"><button data-bp="${i}" data-d="-1" aria-label="Take away points">−</button><input id="bpamt_${i}" class="bpamt" data-i="${i}" type="number" min="1" inputmode="numeric" placeholder="1" value="${esc(bpAmt[i]||"")}" aria-label="Amount of bond points"><button data-bp="${i}" data-d="1" aria-label="Add points">+</button><span class="note">type an amount, then + or −</span></div>
         ${unlocked(b,i)}
         ${ta(`bondPts.${i}.perks`,2).replace("<textarea","<textarea placeholder=\"Other perks or notes\"")}
       </div>`).join("")}</div>
@@ -523,7 +539,9 @@ function rerender(){
   if(focusId){const el=document.getElementById(focusId);if(el){el.focus();try{if(caret)el.setSelectionRange(caret[0],caret[1])}catch(e){}}}
 }
 app.addEventListener("input",e=>{
-  const t=e.target,k=t.dataset.k; if(!k) return;
+  const t=e.target,k=t.dataset.k;
+  if(t.classList.contains("bpamt")){bpAmt[t.dataset.i]=t.value;return}
+  if(!k) return;
   if(t.type==="checkbox") return;
   if(t.tagName==="SELECT") return;
   let v=t.value; if(t.type==="number") v=v===""?0:Number(v);
@@ -546,12 +564,13 @@ app.addEventListener("click",e=>{
     if(t.dataset.hpact==="temp"){tmp=Math.max(tmp,amt)}
     S.hpCur=cur;S.hpTemp=tmp;changed(true);
   }
-  if(t.dataset.bp){const b=S.bondPts[+t.dataset.bp];b.points=Math.max(0,(Number(b.points)||0)+Number(t.dataset.d));changed(true)}
+  if(t.dataset.bp){const i=+t.dataset.bp,b=S.bondPts[i];const amt=Math.max(1,Math.floor(Number(bpAmt[i])||1));b.points=Math.max(0,(Number(b.points)||0)+Number(t.dataset.d)*amt);changed(true)}
   if(t.dataset.perkuse){const b=S.bondPts[+t.dataset.perkuse];b.used=b.used||{};b.used[t.dataset.perk]=!b.used[t.dataset.perk];changed(true)}
+  if(t.dataset.read){const k=t.dataset.read;openSpell.has(k)?openSpell.delete(k):openSpell.add(k);rerender();return}
   if(t.dataset.toggle){set(t.dataset.toggle,!get(t.dataset.toggle));changed(true)}
   if(t.dataset.cycle){const v=get(t.dataset.cycle);set(t.dataset.cycle,(v+1)%3);changed(true)}
-  if(t.dataset.del){const [arr,i]=t.dataset.del.split(".");S[arr].splice(+i,1);changed(true)}
-  if(t.dataset.add){const blank={attacks:{name:"",range:"",hit:"",dmg:"",note:""},spells:{lvl:(document.getElementById("newSpellLvl")||{}).value||"1st",name:"",prep:false,always:false},extraSpells:{lvl:"",name:"",note:"",always:false,uses:1,used:0},features:{name:"New feature",text:""},allies:{name:"",rank:""},bondPts:{name:"",points:0,perks:"",used:{}},training:{name:"",normal:0,expert:0},perkTable:{at:0,name:"",desc:""},acItems:{name:"",type:"add",val:1,worn:true}}[t.dataset.add];S[t.dataset.add].push(blank);changed(true)}
+  if(t.dataset.del){openSpell.clear();const [arr,i]=t.dataset.del.split(".");S[arr].splice(+i,1);changed(true)}
+  if(t.dataset.add){const blank={attacks:{name:"",range:"",hit:"",dmg:"",note:""},spells:{lvl:(document.getElementById("newSpellLvl")||{}).value||"1st",name:"",prep:false,always:false,desc:""},extraSpells:{lvl:"",name:"",note:"",always:false,uses:1,used:0,desc:""},features:{name:"New feature",text:""},allies:{name:"",rank:""},bondPts:{name:"",points:0,perks:"",used:{}},training:{name:"",normal:0,expert:0},perkTable:{at:0,name:"",desc:""},acItems:{name:"",type:"add",val:1,worn:true}}[t.dataset.add];S[t.dataset.add].push(blank);changed(true)}
 });
 document.getElementById("btnLong").onclick=()=>{S.hpCur=hpMax();S.extraSpells.forEach(x=>x.used=0);S.bondPts.forEach(b=>b.used={});S.hpTemp=0;S.slots.forEach(s=>s.used=0);S.lay.cur=S.lay.max;S.cd.used=0;S.sense.used=0;S.deathS=0;S.deathF=0;S.hdUsed=Math.max(0,(Number(S.hdUsed)||0)-Math.max(1,Math.floor(7/2)));changed(true)};
 document.getElementById("btnShort").onclick=()=>{S.cd.used=0;changed(true)};
@@ -576,6 +595,7 @@ function merge(d){const base=JSON.parse(JSON.stringify(DEFAULT));
   if(d&&Array.isArray(d.extraSpells))d.extraSpells.forEach(x=>{if(x.uses==null){const n=String(x.name).toLowerCase();x.always=/druidcraft/.test(n);x.uses=/magic missile|beacon of hope/.test(n)?1:0;x.used=0}});
   if(d&&Array.isArray(d.bondPts))d.bondPts.forEach(b=>{b.used=b.used||{}});
   if(d&&Array.isArray(d.perkTable))base.perkTable.forEach(k=>{if(!d.perkTable.some(x=>x.name===k.name||Number(x.at)===k.at))d.perkTable.push(k)});
+  ["spells","extraSpells"].forEach(k=>{if(d&&Array.isArray(d[k]))d[k].forEach(x=>{if(!x.desc)x.desc=SPELL_SUMMARY[x.name]||""})});
   return Object.assign(base,d)}
 render();
 try{const l=localStorage.getItem("rov-sheet");if(l){S=merge(JSON.parse(l));render()}status("Saved","ok")}catch(e){status("Couldn't load saved sheet","bad")}
@@ -650,6 +670,7 @@ tr:nth-child(even) td{background:#f1ecdf}
 <h2>MAGIC ITEMS</h2><div>${L(S.magic)}</div></div>
 </div>
 <div class="pg"></div>
+${(()=>{const list=[...S.spells.filter(x=>x.prep||x.always),...S.extraSpells].filter(x=>x.desc);return list.length?`<h2>SPELL NOTES (prepared & additional)</h2><div class="two f">${list.map(x=>`<p><b>${esc(x.name)}.</b> ${L(x.desc)}</p>`).join("")}</div>`:""})()}
 <h2>FEATURES & TRAITS</h2><div class="two f">${S.features.map(f=>`<p><b>${esc(f.name)}.</b> ${L(f.text)}</p>`).join("")}</div>
 <div class="cols" style="grid-template-columns:1fr 1fr">
 <div><h2>BOND POINTS</h2><table>${S.bondPts.map(b=>{const got=S.perkTable.filter(k=>(Number(b.points)||0)>=(Number(k.at)||0)&&k.name).map(k=>esc(k.mystery&&k.name==="???"?"Mystery perk":k.name)).join(", ");return `<tr><td><b>${esc(b.name)}</b>${got?` <small>(${got})</small>`:""}</td><td class="n">${esc(b.points)}</td></tr>${b.perks?`<tr><td colspan="2" style="font-size:9pt">${L(b.perks)}</td></tr>`:""}`}).join("")}</table>
