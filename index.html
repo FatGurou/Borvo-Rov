@@ -341,7 +341,9 @@ button.tag.on{background:linear-gradient(#e2bd62,#8a6420);border-color:#5e4313;c
 .dmg b{font-size:22px;color:#7a1020}
 .dchk{display:flex;align-items:center;gap:8px;font:400 14.5px var(--read);margin-bottom:10px}
 .dlgBtns{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:6px}
-.dlg input[type=text],.dlg input:not([type]){color:#2a1d10;background:rgba(255,255,255,.4);border:1px solid #7a5a1b;margin-bottom:10px}
+.dlg input[type=text],.dlg input:not([type]),.dlg input[type=number]{color:#2a1d10;background:rgba(255,255,255,.55);border:1px solid #7a5a1b;margin-bottom:10px}
+.dlg input[type=number]{flex:1}
+.dlg [data-srroll]{flex:none;white-space:nowrap;padding:8px 12px}
 .prep{display:grid;grid-template-columns:28px 1fr;gap:4px 8px;align-items:start;padding:5px 0;border-bottom:1px solid rgba(122,90,27,.25)}
 .prep input{margin-top:2px}
 .prep details summary{font:500 15.5px var(--read);color:#2a1d10;cursor:pointer;list-style:none}
@@ -460,6 +462,33 @@ button.tag.on{background:linear-gradient(#e2bd62,#8a6420);border-color:#5e4313;c
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #printFrame{position:fixed;width:0;height:0;border:0;left:-9999px}
 
+/* ---------- Netri ---------- */
+#netri{position:fixed;left:0;top:0;width:44px;height:38px;z-index:50;transform:translate(-200px,-200px);transform-origin:50% 100%;cursor:pointer;will-change:transform;filter:drop-shadow(0 3px 3px rgba(0,0,0,.7))}
+#netri svg{width:100%;height:100%;overflow:visible;display:block}
+#netri .flipper{transform-origin:50% 50%;transition:transform .25s}
+#netri.right .flipper{transform:scaleX(-1)}
+#netri .wing{transform-origin:27px 25px;transform-box:view-box;transition:transform .15s}
+#netri.fly .wing{animation:flap .13s ease-in-out infinite alternate}
+#netri.glide .wing{animation:none;transform:rotate(-62deg)}
+@keyframes flap{from{transform:rotate(-78deg)}to{transform:rotate(28deg)}}
+#netri .legs{transition:opacity .15s}
+#netri.fly .legs,#netri.glide .legs{opacity:0}
+#netri .head{transform-origin:20px 24px;transform-box:view-box;transition:transform .25s}
+#netri.tilt .head{transform:rotate(-16deg)}
+#netri .eyelid{transform-origin:15px 17px;transform-box:view-box;transform:scaleY(0)}
+#netri.blink .eyelid{transform:scaleY(1)}
+#netri .bodyg{transform-origin:30px 40px;transform-box:view-box;transition:transform .3s}
+#netri.fluff .bodyg{transform:scale(1.12,1.08)}
+#netri.hop .hopper{animation:hop .42s cubic-bezier(.3,.6,.4,1)}
+@keyframes hop{0%{transform:translateY(0) scaleY(1)}15%{transform:translateY(1px) scaleY(.88)}50%{transform:translateY(-14px) scaleY(1.05)}85%{transform:translateY(0) scaleY(.92)}100%{transform:none}}
+#netri.land .hopper{animation:land .5s ease-out}
+@keyframes land{0%{transform:translateY(-6px)}40%{transform:translateY(2px) scaleY(.85)}70%{transform:translateY(-2px) scaleY(1.04)}100%{transform:none}}
+#netri .hopper{transform-origin:50% 100%}
+#netriSkip{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:51;font:500 13px var(--read);color:#e6d6b8;opacity:0;transition:opacity .4s;pointer-events:none;text-shadow:0 1px 3px #000}
+body.intro #netriSkip{opacity:.85}
+#blanket{position:fixed;inset:0;z-index:48;pointer-events:none}
+#nfx{position:fixed;inset:0;z-index:49;pointer-events:none}
+
 /* ---------- calm mode / reduced motion ---------- */
 body.calm .bg .glass,body.calm .bg .candle,body.calm .brand,body.calm .ph::after,body.calm .bigHp::after,body.calm .gem,body.calm .rune,body.calm .auraWrap::before{animation:none}
 body.calm .shake,body.calm .slam{animation:none}
@@ -531,6 +560,37 @@ body.calm .shake,body.calm .slam{animation:none}
 <canvas id="fx"></canvas>
 <div class="dlgBack" id="dlgBack"><div class="dlg" role="dialog" aria-modal="true"><div class="di" id="dlgBody"></div></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
+<canvas id="blanket"></canvas><canvas id="nfx"></canvas>
+<div id="netri" class="fly" role="img" aria-label="Netri the canary">
+ <div class="hopper"><div class="flipper">
+ <svg viewBox="0 0 56 48" aria-hidden="true">
+  <defs>
+   <radialGradient id="nb" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#fff3a6"/><stop offset=".55" stop-color="#f7cf2a"/><stop offset="1" stop-color="#d49a0e"/></radialGradient>
+   <linearGradient id="nw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3c320"/><stop offset=".6" stop-color="#cf9412"/><stop offset="1" stop-color="#9c6a0a"/></linearGradient>
+   <radialGradient id="nh" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff6b8"/><stop offset=".6" stop-color="#f9d43a"/><stop offset="1" stop-color="#dba315"/></radialGradient>
+  </defs>
+  <g class="legs" stroke="#b0745a" stroke-width="1.6" stroke-linecap="round" fill="none">
+   <path d="M27 38 L26 45 M23.5 45 L28.5 45"/><path d="M33 38 L34 45 M31.5 45 L36.5 45"/>
+  </g>
+  <g class="bodyg">
+   <path d="M40 30 C47 31 53 35 55 40 C50 40 45 38 41 35 Z" fill="#c98e10"/>
+   <path d="M40 29 C46 28 52 30 55 34 C50 35 44 34 40 32 Z" fill="#e0a818"/>
+   <ellipse cx="30" cy="30" rx="15" ry="11.5" fill="url(#nb)"/>
+   <ellipse cx="25" cy="34" rx="9" ry="6" fill="#fff0a0" opacity=".6"/>
+  </g>
+  <g class="wing"><path d="M24 24 C30 19 41 21 46 28 C43 31 36 33 29 31 C26 30 24 27 24 24 Z" fill="url(#nw)"/>
+   <path d="M31 25 C35 25 40 27 43 29 M30 28 C34 28.5 38 29.5 41 30.5" stroke="#8a5a08" stroke-width=".8" fill="none" opacity=".7"/></g>
+  <g class="head">
+   <circle cx="18" cy="19" r="9.5" fill="url(#nh)"/>
+   <path d="M9 19.5 L3.5 21.5 L9.3 22.6 Z" fill="#f09a2a" stroke="#c46f12" stroke-width=".6" stroke-linejoin="round"/>
+   <circle cx="15" cy="17" r="2.1" fill="#1a1208"/><circle cx="14.3" cy="16.3" r=".7" fill="#fff"/>
+   <ellipse class="eyelid" cx="15" cy="17" rx="2.4" ry="2.4" fill="#f2c82a"/>
+   <ellipse cx="13" cy="21.5" rx="2.2" ry="1.3" fill="#ffb24a" opacity=".45"/>
+  </g>
+ </svg></div></div>
+</div>
+
+<div id="netriSkip">Tap anywhere to skip</div>
 <iframe id="printFrame" title="Print preview" aria-hidden="true"></iframe>
 
 <script>
@@ -881,6 +941,7 @@ function header(){
   document.body.classList.toggle("calm",!!UI.calm);
   $("#swCalm").classList.toggle("on",!!UI.calm);$("#swVib").classList.toggle("on",!!UI.vib);
   $("#lastBk").textContent=UI.lastBackup||"never";
+  if(window.NETRI_READY)NETRI.place();
 }
 
 // =====================================================================
@@ -1103,7 +1164,35 @@ function longRest(){closeDlg();$("#menu").classList.remove("open");
     S.conds=[];S.conc="";S.treats.left=S.treats.max;changed(true);
     prepDlg("☀ Dawn. HP, spell slots, Lay on Hands, Channel Divinity, Divine Sense, daily spells and perks are restored. Conditions and concentration cleared. A fresh batch of treats is baked.");
   },calm()?0:1100)}
-function shortRest(){$("#menu").classList.remove("open");S.cd.used=0;changed(true);toast("Short rest: Channel Divinity restored. With Rov's cooking, anyone spending Hit Dice regains an extra 1d8.")}
+// ---------- short rest: Channel Divinity back, spend Hit Dice ----------
+function hdInfo(){const m=String(S.hitDice||"").match(/(\d+)\s*d\s*(\d+)/i);const total=m?+m[1]:level(),die=m?+m[2]:10;
+  return {total,die,left:Math.max(0,total-(Number(S.hdUsed)||0))}}
+let sr={roll:"",cook:false,cookRoll:"",cookUsed:false,healed:0,spent:0};
+function shortRest(){$("#menu").classList.remove("open");S.cd.used=0;changed(true);sr={roll:"",cook:false,cookRoll:"",cookUsed:false,healed:0,spent:0};srDlg()}
+function srDlg(){const h=hdInfo(),con=md(S.abil.con.s),full=hpCur()>=hpMax();
+  const r=parseInt(sr.roll),c=parseInt(sr.cookRoll),useCook=sr.cook&&!sr.cookUsed;
+  const total=isNaN(r)?null:Math.max(0,r+con+(useCook&&!isNaN(c)?c:0));
+  openDlg(`<h3>Short rest</h3><div class="sub">Channel Divinity is restored. Spend Hit Dice to heal: roll the die and add your Constitution (${sg(con)}).</div>
+    <div class="dmg">Hit Dice left: <b>${h.left}</b> of ${h.total} (d${h.die}) · HP ${hpCur()} / ${hpMax()}${sr.spent?`<br>This rest: ${sr.spent} spent, +${sr.healed} HP`:""}</div>
+    ${h.left&&!full?`<div class="lbl" style="color:#7a1020">Your d${h.die} roll</div>
+    <div class="lvls" style="align-items:center"><input id="srRoll" type="number" inputmode="numeric" min="1" max="${h.die}" value="${esc(sr.roll)}" placeholder="1–${h.die}" style="margin:0;font:700 22px var(--read);text-align:center">
+      <button class="lvl" data-srroll="hd">Roll for me</button></div>
+    ${sr.cookUsed?`<div class="sub">The +1d8 from Rov's cooking has been used this rest.</div>`:`<label class="dchk"><input type="checkbox" id="srCook" ${sr.cook?"checked":""}> Ate Rov's cooking this rest (+1d8 once, Chef)</label>`}
+    ${useCook?`<div class="lvls" style="align-items:center"><input id="srCookRoll" type="number" inputmode="numeric" min="1" max="8" value="${esc(sr.cookRoll)}" placeholder="d8" style="margin:0;font:700 20px var(--read);text-align:center"><button class="lvl" data-srroll="cook">Roll d8</button></div>`:""}
+    ${total!=null?`<div class="dmg">Heals <b>${total}</b> HP (${r} ${sg(con)}${useCook&&!isNaN(c)?" + "+c+" cooking":""})</div>`:""}
+    <div class="dlgBtns"><button data-do="close">Done</button><button class="green" data-do="srSpend" ${total==null?"disabled":""}>Spend 1 Hit Die</button></div>`
+    :`<div class="sub">${full?"Rov is at full HP.":"No Hit Dice left. A long rest gives back half of them."}</div><div class="dlgBtns"><button class="gold" data-do="close">Done</button></div>`}`);
+  const ri=$("#srRoll");if(ri)ri.oninput=e=>{sr.roll=e.target.value;refresh()};
+  const ck=$("#srCook");if(ck)ck.onchange=e=>{sr.cook=e.target.checked;srDlg()};
+  const ci=$("#srCookRoll");if(ci)ci.oninput=e=>{sr.cookRoll=e.target.value;refresh()};
+  document.querySelectorAll("[data-srroll]").forEach(b=>b.onclick=()=>{if(b.dataset.srroll==="hd")sr.roll=String(1+Math.floor(Math.random()*h.die));else sr.cookRoll=String(1+Math.floor(Math.random()*8));srDlg()});
+  function refresh(){const id=document.activeElement&&document.activeElement.id,pos=document.activeElement&&document.activeElement.selectionStart;srDlg();const el=id&&document.getElementById(id);if(el){el.focus();try{el.setSelectionRange(pos,pos)}catch(e){}}}
+}
+function srSpend(){const h=hdInfo(),con=md(S.abil.con.s),r=parseInt(sr.roll),c=parseInt(sr.cookRoll),useCook=sr.cook&&!sr.cookUsed&&!isNaN(c);
+  if(isNaN(r)||!h.left)return;const heal=Math.max(0,r+con+(useCook?c:0));const was=hpCur();
+  S.hdUsed=(Number(S.hdUsed)||0)+1;S.hpCur=Math.min(hpMax(),was+heal);if(was<=0&&S.hpCur>0){S.deathS=0;S.deathF=0}
+  sr.spent++;sr.healed+=S.hpCur-was;if(useCook)sr.cookUsed=true;sr.roll="";sr.cookRoll="";
+  changed(true);fxHeal();srDlg()}
 
 async function backup(){$("#menu").classList.remove("open");
   const name="Borvo_Rov_backup_"+new Date().toISOString().slice(0,10)+".json";
@@ -1141,7 +1230,7 @@ document.addEventListener("click",e=>{
   if(t.id==="menuBtn"){$("#menu").classList.toggle("open");t.setAttribute("aria-expanded",$("#menu").classList.contains("open"));return}
   if(d.tab){UI.tab=d.tab;saveUI();openSpell.clear();render();scrollTo({top:0});return}
   if(d.act){const a=d.act;
-    if(a==="calm"){UI.calm=!UI.calm;saveUI();header();return}
+    if(a==="calm"){UI.calm=!UI.calm;saveUI();header();NETRI.calm();return}
     if(a==="vib"){UI.vib=!UI.vib;saveUI();header();if(UI.vib)vib(40);return}
     if(a==="long")return longRest();
     if(a==="short")return shortRest();
@@ -1180,6 +1269,7 @@ document.addEventListener("click",e=>{
   if(a==="smiteGo")return smiteGo();
   if(a==="castGo")return castGo(d.key);
   if(a==="layDlg")return layDlg();
+  if(a==="srSpend")return srSpend();
   if(a==="layGo")return layGo();
   if(a==="prepDlg")return prepDlg();
   if(a==="prepDone"){closeDlg();changed(true);toast(`Spells prepared: ${prepCount()} of ${prepLimit()}.`);return}
@@ -1226,6 +1316,140 @@ render();
 try{const l=localStorage.getItem("rov-sheet");if(l){S=merge(JSON.parse(l));render()}status("All changes saved","ok")}catch(e){status("Couldn't load the saved sheet","bad")}
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){navigator.serviceWorker.register("sw.js").catch(()=>{})}
+
+// =====================================================================
+// NETRI: pulls the blanket off when the app opens, then perches by the name
+// =====================================================================
+const NETRI=(()=>{
+
+const N=document.getElementById("netri"),body=document.body,brand=document.getElementById("brand");
+const fx=document.getElementById("nfx"),c=fx.getContext("2d");let W,H,DPR=Math.min(2,devicePixelRatio||1);
+function size(){W=innerWidth;H=innerHeight;fx.width=W*DPR;fx.height=H*DPR;fx.style.width=W+"px";fx.style.height=H+"px";c.setTransform(DPR,0,0,DPR,0,0)}size();addEventListener("resize",()=>{size();if(!flying)place()});
+let parts=[];
+function feather(x,y,n,kind){for(let i=0;i<n;i++)parts.push({x,y,vx:(Math.random()-.5)*(kind==="mote"?.6:2.2),vy:kind==="mote"?-.2-Math.random()*.4:-1-Math.random()*1.5,life:1,decay:kind==="mote"?.02:.006+Math.random()*.004,r:kind==="mote"?1.2+Math.random()*1.6:3+Math.random()*2,rot:Math.random()*6,vr:(Math.random()-.5)*.08,kind})}
+(function loop(){c.clearRect(0,0,W,H);parts=parts.filter(p=>p.life>0);
+  for(const p of parts){p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;
+    if(p.kind==="feather"){p.vy=Math.min(p.vy+.05,.9);p.vx*=.98;p.x+=Math.sin(p.life*12)*.5;p.rot+=p.vr;
+      c.save();c.translate(p.x,p.y);c.rotate(p.rot);c.globalAlpha=Math.max(0,p.life);const g=c.createLinearGradient(-p.r,0,p.r,0);g.addColorStop(0,"#fff4b0");g.addColorStop(1,"#e0a818");
+      c.fillStyle=g;c.beginPath();c.ellipse(0,0,p.r,p.r*.38,0,0,7);c.fill();c.restore()}
+    else{c.globalAlpha=Math.max(0,p.life);c.fillStyle="#ffe48a";c.shadowColor="#ffd34a";c.shadowBlur=8;c.beginPath();c.arc(p.x,p.y,p.r,0,7);c.fill();c.shadowBlur=0}}
+  c.globalAlpha=1;requestAnimationFrame(loop)})();
+
+// where she perches: standing just right of the name, feet on the header row
+function perch(){const rg=document.createRange();rg.selectNodeContents(brand);const r=rg.getBoundingClientRect();return {x:r.right+26,y:r.top+r.height*.8}}
+let state={x:0,y:0,s:1,rot:0};
+function draw(){N.style.transform=`translate(${state.x-22}px,${state.y-38}px) rotate(${state.rot}deg) scale(${state.s})`}
+function place(){const p=perch();state={x:p.x,y:p.y,s:1,rot:0};draw()}
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+function bez(a,b,c2,d,t){const u=1-t;return u*u*u*a+3*u*u*t*b+3*u*t*t*c2+t*t*t*d}
+let flying=false,raf=0,idleT=0,blinkT=0;const isCalm=()=>!!UI.calm||matchMedia("(prefers-reduced-motion: reduce)").matches;
+// ---------- the blanket ----------
+const bc=document.getElementById("blanket"),bx=bc.getContext("2d");let tex=null;
+function sizeB(){bc.width=W*DPR;bc.height=H*DPR;bc.style.width=W+"px";bc.style.height=H+"px";tex=makeTex()}
+function makeTex(){const t=document.createElement("canvas");t.width=W*DPR;t.height=H*DPR;const g=t.getContext("2d");g.scale(DPR,DPR);
+  let gr=g.createRadialGradient(W*.4,H*.3,10,W*.5,H*.5,Math.max(W,H)*.8);gr.addColorStop(0,"#9c1328");gr.addColorStop(.6,"#6e0a1b");gr.addColorStop(1,"#3a040d");g.fillStyle=gr;g.fillRect(0,0,W,H);
+  // soft draped folds in the velvet
+  for(let i=0;i<7;i++){const x=W*(i/6)+(Math.random()-.5)*40,w=40+Math.random()*60;const lg=g.createLinearGradient(x-w,0,x+w,0);
+    lg.addColorStop(0,"rgba(0,0,0,0)");lg.addColorStop(.45,i%2?"rgba(255,170,180,.07)":"rgba(0,0,0,.18)");lg.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=lg;g.fillRect(x-w,0,w*2,H)}
+  // velvet grain
+  for(let i=0;i<W*H/9;i++){g.fillStyle=Math.random()<.5?"rgba(0,0,0,.08)":"rgba(255,200,210,.05)";g.fillRect(Math.random()*W,Math.random()*H,1,1)}
+  // embroidered gold border
+  g.strokeStyle="#c9a24a";g.lineWidth=3;g.strokeRect(14,14,W-28,H-28);g.lineWidth=1;g.strokeStyle="rgba(240,207,120,.7)";g.strokeRect(22,22,W-44,H-44);
+  g.fillStyle="#e2bd62";for(let x=34;x<W-30;x+=22){diamond(g,x,18);diamond(g,x,H-18)}for(let y=34;y<H-30;y+=22){diamond(g,18,y);diamond(g,W-18,y)}
+  // faint embroidered rose in the middle
+  g.save();g.translate(W/2,H/2);g.globalAlpha=.55;g.strokeStyle="#d9b25a";g.lineWidth=1.6;
+  for(let r=0;r<6;r++){g.rotate(Math.PI/3);g.beginPath();g.ellipse(0,-22,15,22,0,0,Math.PI*2);g.stroke()}
+  for(let r=0;r<5;r++){g.rotate(Math.PI*2/5);g.beginPath();g.ellipse(0,-12,9,12,0,0,Math.PI*2);g.stroke()}
+  g.beginPath();g.arc(0,0,6,0,7);g.stroke();g.restore();
+  g.font="400 46px Fraktur";g.textAlign="center";g.fillStyle="rgba(226,189,98,.55)";g.fillText(S.name||"Borvo Rov",W/2,H/2+90);
+  return t}
+function diamond(g,x,y){g.beginPath();g.moveTo(x,y-3);g.lineTo(x+3,y);g.lineTo(x,y+3);g.lineTo(x-3,y);g.closePath();g.fill()}
+// draw the blanket with its bottom-right corner pulled to T (blanket-local coords), shifted by D
+function drawBlanket(T,D,time){bx.setTransform(DPR,0,0,DPR,0,0);bx.clearRect(0,0,W,H);if(!T)return;
+  const C={x:W,y:H};let nx=C.x-T.x,ny=C.y-T.y;const len=Math.hypot(nx,ny);
+  bx.translate(D.x,D.y);
+  if(len<1){bx.drawImage(tex,0,0,W,H);return}
+  nx/=len;ny/=len;const M={x:(C.x+T.x)/2,y:(C.y+T.y)/2},dx=-ny,dy=nx,F=3000;
+  // wavy fold line: cloth ripple along the fold
+  const pts=[];for(let i=-40;i<=40;i++){const s=i/40*F*.5,w=(Math.sin(s*.03+time*.011)+.5*Math.sin(s*.075-time*.017))*Math.min(11,len*.05)*Math.exp(-Math.abs(s)/500);pts.push({x:M.x+dx*s+nx*w,y:M.y+dy*s+ny*w})}
+  const half=(side)=>{bx.beginPath();bx.moveTo(pts[0].x,pts[0].y);for(const p of pts)bx.lineTo(p.x,p.y);
+    const e=pts[pts.length-1],f=pts[0];bx.lineTo(e.x+side*nx*F,e.y+side*ny*F);bx.lineTo(f.x+side*nx*F,f.y+side*ny*F);bx.closePath()};
+  // 1. the flat part, front side
+  bx.save();bx.beginPath();bx.rect(0,0,W,H);bx.clip();half(-1);bx.clip();bx.drawImage(tex,0,0,W,H);
+  // shadow cast by the folded flap
+  const sh=bx.createLinearGradient(M.x,M.y,M.x-nx*60,M.y-ny*60);sh.addColorStop(0,"rgba(0,0,0,.55)");sh.addColorStop(1,"rgba(0,0,0,0)");bx.fillStyle=sh;bx.fillRect(-F,-F,F*2,F*2);bx.restore();
+  // 2. the folded flap, back side (gold satin lining), mirrored over the fold
+  const k=2*(M.x*nx+M.y*ny);
+  bx.save();bx.transform(1-2*nx*nx,-2*nx*ny,-2*nx*ny,1-2*ny*ny,k*nx,k*ny);
+  bx.beginPath();bx.rect(0,0,W,H);bx.clip();half(1);bx.clip();
+  bx.shadowColor="rgba(0,0,0,.6)";bx.shadowBlur=24;
+  const lg=bx.createLinearGradient(M.x,M.y,C.x,C.y);lg.addColorStop(0,"#d9707f");lg.addColorStop(.12,"#a3263a");lg.addColorStop(.45,"#6e0e1e");lg.addColorStop(1,"#3a050d");
+  bx.fillStyle=lg;bx.fillRect(-F,-F,F*2,F*2);
+  // satin sheen bands
+  bx.shadowBlur=0;for(let i=1;i<4;i++){const q=bx.createLinearGradient(M.x+nx*i*40,M.y+ny*i*40,M.x+nx*(i*40+18),M.y+ny*(i*40+18));q.addColorStop(0,"rgba(255,245,210,0)");q.addColorStop(.5,"rgba(255,200,210,.16)");q.addColorStop(1,"rgba(255,245,210,0)");bx.fillStyle=q;bx.fillRect(-F,-F,F*2,F*2)}
+  bx.strokeStyle="#c9a24a";bx.lineWidth=5;bx.strokeRect(2,2,W-4,H-4);
+  bx.restore();
+  // highlight along the fold edge
+  bx.save();bx.beginPath();bx.rect(0,0,W,H);bx.clip();bx.beginPath();bx.moveTo(pts[0].x,pts[0].y);for(const p of pts)bx.lineTo(p.x,p.y);bx.strokeStyle="rgba(255,190,200,.45)";bx.lineWidth=3;bx.stroke();bx.restore();
+  // the gold tassel at the pulled corner
+  bx.save();bx.translate(T.x,T.y);bx.fillStyle="#e2bd62";bx.beginPath();bx.arc(0,0,5,0,7);bx.fill();
+  bx.strokeStyle="#c9a24a";bx.lineWidth=1.4;for(let i=-3;i<=3;i++){bx.beginPath();bx.moveTo(0,3);bx.quadraticCurveTo(i*2,10,i*2.4,16+Math.sin(time*.02+i)*1.5);bx.stroke()}bx.restore();
+}
+sizeB();addEventListener("resize",()=>{sizeB();if(!flying)drawBlanket(null)});
+const lerp=(a,b,t)=>a+(b-a)*t, easeIn=t=>t*t*t, easeOut=t=>1-Math.pow(1-t,3), easeIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function arrive(){
+  clearTimeout(idleT);cancelAnimationFrame(raf);tex=makeTex();
+  if(isCalm()){drawBlanket(null);N.className="";place();return}
+  flying=true;body.classList.add("intro");N.className="fly";N.classList.remove("right");
+  const p=perch(),C={x:W,y:H};
+  const A={x:W*.18,y:H*.22};             // where the corner is pulled to before the yank
+  const t0=performance.now();let lx=W+80,ly=H*.55,last=t0;
+  drawBlanket({x:W,y:H},{x:0,y:0},0);
+  function step(now){const t=now-t0;let x,y,s=1.5,T=null,D={x:0,y:0};
+    if(t<650){// fly in to the corner
+      const k=easeOut(t/650);x=lerp(W+80,C.x-14,k);y=lerp(H*.55,C.y-26,k)+Math.sin(k*Math.PI)*-40;T={x:W,y:H};N.className="fly"}
+    else if(t<900){// grab the tassel and tug twice
+      const k=(t-650)/250,tug=Math.sin(k*Math.PI*2)*10;T={x:W-14-tug,y:H-14-tug};x=T.x-8;y=T.y-6;N.className="glide";if(t-last>120){if(UI.vib&&(!navigator.userActivation||navigator.userActivation.hasBeenActive))try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}last=t}}
+    else if(t<1900){// pull the blanket back across the screen
+      const k=easeIO((t-900)/1000);T={x:lerp(W-14,A.x,k),y:lerp(H-14,A.y,k)-Math.sin(k*Math.PI)*H*.12};x=T.x-8;y=T.y-6;N.className="fly"}
+    else if(t<2500){// yank it off to the left, the whole blanket goes with her
+      const k=easeIn((t-1900)/600);const off={x:-W*1.4*k,y:-H*.25*k};T={x:A.x,y:A.y};D=off;x=A.x+off.x-8;y=A.y+off.y-6;N.className="fly"}
+    else if(t<3300){// swoop back in to her perch
+      drawBlanket(null);T=null;const k=easeOut((t-2500)/800);x=lerp(-60,p.x,k);y=lerp(H*.3,p.y,k)-Math.sin(k*Math.PI)*60;s=lerp(1.4,1,k);
+      N.className=k>.8?"glide right":"fly right"}
+    else{drawBlanket(null);return land()}
+    if(T)drawBlanket(T,D,t);
+    const dx=x-lx,dy=y-ly;lx=x;ly=y;state.x=x;state.y=y;state.s=s;state.rot=Math.max(-22,Math.min(22,Math.atan2(dy,Math.abs(dx)+.01)*30));
+    if(t>1300)body.classList.remove("intro");
+    if(Math.random()<.4)feather(x,y-10,1,"mote");
+    draw();raf=requestAnimationFrame(step)}
+  raf=requestAnimationFrame(step);
+}
+function land(){flying=false;body.classList.remove("intro");N.className="land right";place();const p=perch();feather(p.x,p.y-20,8,"feather");
+  if(UI.vib&&(!navigator.userActivation||navigator.userActivation.hasBeenActive))try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}
+  setTimeout(()=>{N.classList.remove("land");scheduleIdle()},520)}
+function skip(){if(!flying)return;cancelAnimationFrame(raf);drawBlanket(null);land()}
+
+// idle life on the perch
+const ACTS=["hop","tilt","fluff","turn","tilt","hop"];
+function act(a){if(flying||isCalm())return;
+  if(a==="hop"){N.classList.remove("hop");void N.offsetWidth;N.classList.add("hop");setTimeout(()=>N.classList.remove("hop"),450)}
+  if(a==="tilt"){N.classList.add("tilt");setTimeout(()=>N.classList.remove("tilt"),1100)}
+  if(a==="fluff"){N.classList.add("fluff");setTimeout(()=>{N.classList.remove("fluff");const p=perch();feather(p.x+2,p.y-16,2,"feather")},700)}
+  if(a==="turn"){N.classList.toggle("right")}}
+function scheduleIdle(){clearTimeout(idleT);idleT=setTimeout(()=>{act(ACTS[Math.floor(Math.random()*ACTS.length)]);scheduleIdle()},3200+Math.random()*4500)}
+(function blink(){clearTimeout(blinkT);blinkT=setTimeout(()=>{if(!isCalm()&&!flying){N.classList.add("blink");setTimeout(()=>N.classList.remove("blink"),130)}blink()},2200+Math.random()*3500)})();
+
+N.addEventListener("click",e=>{e.stopPropagation();if(flying)return skip();act("hop");const p=perch();feather(p.x,p.y-26,6,"mote")});
+addEventListener("pointerdown",()=>{if(flying)skip()},true);
+
+
+addEventListener("scroll",()=>{if(!flying)place()},{passive:true});
+return {place:()=>{if(!flying)place()},start:()=>{if(isCalm()){place();scheduleIdle()}else arrive()},calm:()=>{if(isCalm()){cancelAnimationFrame(raf);if(flying){flying=false;drawBlanket(null);body.classList.remove("intro");N.className="";}place()}else scheduleIdle()}};
+})();
+window.NETRI_READY=true;
+document.fonts.ready.then(()=>setTimeout(NETRI.start,250));
+
 
 // =====================================================================
 // PRINTABLE SHEET
