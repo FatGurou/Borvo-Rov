@@ -1,4 +1,4 @@
-const CACHE = "rov-sheet-v11";
+const CACHE = "rov-sheet-v12";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./amara.jpg", "./fonts/unifrakturmaguntia-latin-400-normal.woff2", "./fonts/pirata-one-latin-400-normal.woff2", "./fonts/eb-garamond-latin-400-normal.woff2", "./fonts/eb-garamond-latin-700-normal.woff2", "./fonts/eb-garamond-latin-400-italic.woff2"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE))); self.skipWaiting(); });
 self.addEventListener("activate", e => {
